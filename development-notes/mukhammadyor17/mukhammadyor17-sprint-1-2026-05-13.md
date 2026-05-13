@@ -1,0 +1,4 @@
+- Create base structure
+- Add angular-material
+- Create AuthLayout and MainLayout components
+- Create LoginPage and HomePage components
