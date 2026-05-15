@@ -9,7 +9,6 @@ Github link - [AngularShop](https://github.com/mukhammadyor17/angular-shop)
 ### Members
 
 - [Mukhammadyor Turskhanov](https://github.com/mukhammadyor17/)
-- [KostevOleg](https://github.com/KostevOleg/)
 - [Askhat Tassybayev](https://github.com/Aseke09)
 
 ### Development server
