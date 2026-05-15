@@ -1,0 +1,25 @@
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+.page-title {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  line-height: 1.1;
+  font-weight: 900;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+.text-muted {
+  color: var(--color-text-secondary);
+}

@@ -1,0 +1,21 @@
+.btn {
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 14px 24px;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.btn-primary {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+.btn-secondary {
+  background: var(--color-bg-soft);
+  color: var(--color-black);
+}
