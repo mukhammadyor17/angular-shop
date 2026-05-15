@@ -1,18 +1,17 @@
 @use '@angular/material' as mat;
-
-@include mat.theme(
-    (
-      color: (
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
-      ),
-      typography: Roboto,
-      density: 0,
-    )
-);
-
 @use './styles/tokens';
 @use './styles/reset';
 @use './styles/typography';
 @use './styles/layout';
-@use './styles/buttons';
+@use './styles/button';
+
+@include mat.theme(
+  (
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  )
+);
