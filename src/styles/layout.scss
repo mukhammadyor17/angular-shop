@@ -1,0 +1,13 @@
+.container {
+  width: min(100% - 32px, var(--container-width));
+  margin-inline: auto;
+}
+
+.page {
+  padding-block: var(--space-8) var(--space-16);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-6);
+}
