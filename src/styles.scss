@@ -1,4 +1,9 @@
 @use '@angular/material' as mat;
+@use './styles/tokens';
+@use './styles/reset';
+@use './styles/typography';
+@use './styles/layout';
+@use './styles/buttons';
 
 @include mat.theme(
     (
@@ -11,8 +16,4 @@
     )
 );
 
-@use './styles/tokens';
-@use './styles/reset';
-@use './styles/typography';
-@use './styles/layout';
-@use './styles/buttons';
+
