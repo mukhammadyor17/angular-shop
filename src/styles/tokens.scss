@@ -1,7 +1,7 @@
 :root {
-  --color-black: #000;
+  --color-black: #1e1e1e;
   --color-white: #fff;
-  --color-text-primary: #000;
+  --color-text-primary: #1e1e1e;
   --color-text-secondary: rgba(0, 0, 0, 0.6);
   --color-text-muted: rgba(0, 0, 0, 0.4);
   --color-bg-soft: #f0f0f0;
@@ -9,8 +9,8 @@
   --color-danger: #ff3333;
   --color-warning: #ffc633;
 
-  --font-main: Arial, sans-serif;
-  --font-heading: Arial Black, Arial, sans-serif;
+  --font-main: 'Roboto', sans-serif;
+  --font-heading: 'Inter', sans-serif;
 
   --container-width: 1240px;
 
