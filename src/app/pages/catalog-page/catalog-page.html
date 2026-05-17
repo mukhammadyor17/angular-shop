@@ -1,1 +1,6 @@
-<p>catalog-page works!</p>
+<div class="container">
+  <app-product-card 
+    [product]="product"
+    (addToCart)="onAddToCart($event)"
+    />
+</div>

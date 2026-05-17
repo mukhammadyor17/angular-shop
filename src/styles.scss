@@ -3,15 +3,17 @@
 @use './styles/reset';
 @use './styles/typography';
 @use './styles/layout';
-@use './styles/button';
+@use './styles/buttons';
 
 @include mat.theme(
-  (
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  )
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
 );
+
+
