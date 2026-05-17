@@ -11,7 +11,7 @@ import { ProductCard, ProductCardData } from '../../components/base/product-card
 export class CatalogPage {
   product = {
     name: 'Gradient Graphic T-shirt',
-    imageUrl: 'assets/images/product-tshirt.png',
+    imageUrl: 'images/gradient-graphic-tshirt.png',
     rating: 3.5,
     price: 145,
     oldPrice: null,
