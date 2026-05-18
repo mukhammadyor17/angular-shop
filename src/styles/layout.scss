@@ -1,6 +1,7 @@
 .container {
   width: min(100% - 32px, var(--container-width));
   margin-inline: auto;
+  height: 100%;
 }
 
 .page {
