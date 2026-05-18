@@ -4,6 +4,7 @@ import { AuthLayout } from './components/layouts/auth-layout/auth-layout';
 import { HomePage } from './pages/home-page/home-page';
 import { LoginPage } from './pages/login-page/login-page';
 import { CatalogPage } from './pages/catalog-page/catalog-page';
+import { ProfilePage } from './pages/profile-page/profile-page';
 
 export const routes: Routes = [
   {
@@ -19,6 +20,11 @@ export const routes: Routes = [
         path: 'catalog',
         title: 'Catalog Page',
         component: CatalogPage,
+      },
+      {
+        path: 'profile',
+        title: 'Profile Page',
+        component: ProfilePage,
       },
     ],
   },
