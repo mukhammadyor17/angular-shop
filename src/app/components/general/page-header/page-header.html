@@ -4,14 +4,14 @@
       SHOP.CO
     </div>
     <nav class="navigation">
-      <a href="/">Home</a>
-      <a href="/products">Products</a>
-      <a href="/about">About Us</a>
-      <a href="/contact">Contact</a>
-      <a href="/profile">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      <a routerLink="/catalog" routerLinkActive="active">Products</a>
+      <a routerLink="/about" routerLinkActive="active">About Us</a>
+      <a routerLink="/contact" routerLinkActive="active">Contact</a>
+      <a routerLink="/profile" routerLinkActive="active">
         <mat-icon>shopping_cart</mat-icon>
       </a>
-      <a href="/profile">
+      <a routerLink="/profile" routerLinkActive="active">
         <mat-icon>account_circle</mat-icon>
       </a>
     </nav>
