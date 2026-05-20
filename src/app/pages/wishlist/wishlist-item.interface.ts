@@ -1,6 +1,6 @@
 export interface WishlistItem {
     id: string;
     name: string;
-    emage: string;
+    image: string;
     price: number;
 }

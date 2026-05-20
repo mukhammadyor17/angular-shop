@@ -32,7 +32,7 @@ export class WishlistService {
   };
 
   isInWishList(productId: string): boolean {
-    return this.wishlist().some((item) => item.id === productId)''
+    return this.wishlist().some((item) => item.id === productId);
   }
 
   clearWishList(): void {
