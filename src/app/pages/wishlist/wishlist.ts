@@ -4,7 +4,7 @@ import { WishlistService } from '../../services/wishlist.service';
 
 @Component({
   selector: 'app-wishlist',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './wishlist.html',
   styleUrl: './wishlist.scss',
 })

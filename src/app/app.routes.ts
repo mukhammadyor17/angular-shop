@@ -44,10 +44,17 @@ export const routes: Routes = [
     redirectTo: '',
   },
   {
+    path: 'wishlist',
+    loadComponent: () => 
+      import('./pages/wishlist/wishlist').then(
+        (m) => m.Wishlist
+      ),
+  },
+    {
     path: '**',
     loadComponent: () => 
       import('./pages/not-found-page/not-found-page').then(
         (m) => m.NotFoundPage
       ),
-  },
+  }
 ];
