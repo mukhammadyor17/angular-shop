@@ -5,6 +5,7 @@ import { HomePage } from './pages/home-page/home-page';
 import { LoginPage } from './pages/login-page/login-page';
 import { CatalogPage } from './pages/catalog-page/catalog-page';
 import { ProfilePage } from './pages/profile-page/profile-page';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   {
@@ -45,6 +46,7 @@ export const routes: Routes = [
   },
   {
     path: 'wishlist',
+    canActivate: [authGuard],
     loadComponent: () => 
       import('./pages/wishlist/wishlist').then(
         (m) => m.Wishlist
