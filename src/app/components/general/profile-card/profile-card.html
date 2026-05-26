@@ -1,0 +1,11 @@
+@if (user()) {
+<app-base-card class="profile-card">
+  <div class="profile-card__avatar">
+    <img [src]="user()!.avatarUrl" alt="User Avatar" />
+  </div>
+  <div class="profile-card__info">
+    <h2>{{ user()!.name }}</h2>
+    <p>{{ user()!.email }}</p>
+  </div>
+</app-base-card>
+}
