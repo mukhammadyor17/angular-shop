@@ -33,7 +33,15 @@ export const routes: Routes = [
           import('./pages/about-us/about-us').then(
             (m) => m.AboutUs
           ),
-      }
+      },
+      {
+        path: 'wishlist',
+        title: 'wishlist',
+        loadComponent: () => 
+        import('./pages/wishlist/wishlist').then(
+        (m) => m.Wishlist
+      ),
+  },
     ],
   },
   {
@@ -48,17 +56,6 @@ export const routes: Routes = [
     ],
   },
   {
-    path: '**',
-    redirectTo: '',
-  },
-  {
-    path: 'wishlist',
-    loadComponent: () => 
-      import('./pages/wishlist/wishlist').then(
-        (m) => m.Wishlist
-      ),
-  },
-    {
     path: '**',
     loadComponent: () => 
       import('./pages/not-found-page/not-found-page').then(
