@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 import { TeamMemberInterface } from './team-member.interface';
+import { TeamCard } from './team-card/team-card';
+
 
 @Component({
   selector: 'app-about-us',
-  imports: [],
+  imports: [CommonModule, TeamCard],
   templateUrl: './about-us.html',
   styleUrl: './about-us.scss',
 })
@@ -38,11 +42,23 @@ teamMembers: TeamMemberInterface[] = [
 
 /* go to next slide logic */
 nextSlide(): void {
-  (this.currentSlide + 1) % this.teamMembers.length;
-}
+    this.currentSlide =
+      (this.currentSlide + 1) % this.teamMembers.length;
+  }
 
 /* go to previous slide logic */
-prevtSlide(): void {
-  (this.currentSlide - 1 + this.teamMembers.length) % this.teamMembers.length;
+  prevSlide(): void {
+    this.currentSlide =
+      (this.currentSlide - 1 + this.teamMembers.length)
+      % this.teamMembers.length;
+  }
+
+  /* opens selected slide*/
+  goToSlide(index: number): void {
+    this.currentSlide = index;
+  }
+
+onGithubOpened(memberName: string): void {
+  console.log(`${memberName} GitHub profile opened`);
 }
 }
