@@ -27,6 +27,14 @@ export const routes: Routes = [
         title: 'Profile Page',
         component: ProfilePage,
       },
+      {
+        path: 'about',
+        title: 'About us',
+        loadComponent: () => 
+          import('./pages/about-us/about-us').then(
+            (m) => m.AboutUs
+          ),
+      }
     ],
   },
   {

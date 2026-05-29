@@ -1,0 +1,33 @@
+<div class="card">
+    <!-- team member photo-->
+    <img 
+    class="card-image"
+    [src]="member().image"
+    [alt]="member().name"
+    >
+
+    <div class="card-content">
+
+            <!-- team member main info-->
+        <div class="card-header">
+            <h3>{{ member().name }}</h3>
+            <p>{{ member().role }}</p>
+        </div>
+
+            <!-- custom pipe for bio -->
+        <p class="bio text-muted">
+            {{ member().bio }}
+        </p>
+
+            <!-- team member github link-->
+        <a
+        class="btn btn-primary"
+        [href]="member().github"
+        target="_blank"
+        (click)="onGithubClick()"
+        >
+        GitHub
+        </a>
+
+    </div>
+</div>
