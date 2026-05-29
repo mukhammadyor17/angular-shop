@@ -27,6 +27,22 @@ export const routes: Routes = [
         title: 'Profile Page',
         component: ProfilePage,
       },
+      {
+        path: 'about-us',
+        title: 'About Us',
+        loadComponent: () =>
+          import('./pages/about-us/about-us').then(
+            (m) => m.AboutUs
+          ),
+      },
+      {
+        path: 'wishlist',
+        canActivate: [authGuard],
+          loadComponent: () => 
+            import('./pages/wishlist/wishlist').then(
+              (m) => m.Wishlist
+          ),
+      },
     ],
   },
   {
@@ -41,18 +57,6 @@ export const routes: Routes = [
     ],
   },
   {
-    path: '**',
-    redirectTo: '',
-  },
-  {
-    path: 'wishlist',
-    canActivate: [authGuard],
-    loadComponent: () => 
-      import('./pages/wishlist/wishlist').then(
-        (m) => m.Wishlist
-      ),
-  },
-    {
     path: '**',
     loadComponent: () => 
       import('./pages/not-found-page/not-found-page').then(
