@@ -1,14 +1,14 @@
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from "@angular/router";
-import { WishlistService } from '../../services/wishlist.service';
+import { WishlistService } from './wishlist.service';
 
 @Component({
-  selector: 'app-wishlist',
+  selector: 'app-wishlist-page',
   imports: [RouterLink],
-  templateUrl: './wishlist.html',
-  styleUrl: './wishlist.scss',
+  templateUrl: './wishlist-page.html',
+  styleUrl: './wishlist-page.scss',
 })
-export class Wishlist {
+export class WishlistPage {
   private wishlistService = inject(WishlistService);
 
   wishlistItems = this.wishlistService.wishlist;

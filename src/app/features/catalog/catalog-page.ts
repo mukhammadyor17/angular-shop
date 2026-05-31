@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductCard, ProductCardData } from '../../components/base/product-card/product-card';
+import { ProductCard, ProductCardData } from '../../shared/ui/product-card/product-card';
 
 @Component({
   selector: 'app-catalog-page',

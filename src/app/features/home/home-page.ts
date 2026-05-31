@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseTitle } from '../../components/base/base-title/base-title';
+import { BaseTitle } from '../../shared/ui/base-title/base-title';
 
 @Component({
   selector: 'app-home-page',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { BaseTitle } from '../../components/base/base-title/base-title';
-import { ProfileCard } from '../../components/general/profile-card/profile-card';
-import { User } from '../../types/profile.interface';
+import { BaseTitle } from '../../shared/ui/base-title/base-title';
+import { ProfileCard } from '../../shared/ui/profile-card/profile-card';
+import { User } from '../../shared/models/user.model';
 
 @Component({
   selector: 'app-profile-page',

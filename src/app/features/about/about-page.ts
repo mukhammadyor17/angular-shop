@@ -6,12 +6,12 @@ import { TeamCard } from './team-card/team-card';
 
 
 @Component({
-  selector: 'app-about-us',
+  selector: 'app-about-page',
   imports: [CommonModule, TeamCard],
-  templateUrl: './about-us.html',
-  styleUrl: './about-us.scss',
+  templateUrl: './about-page.html',
+  styleUrl: './about-page.scss',
 })
-export class AboutUs {
+export class AboutPage {
 /* active slide index */
 currentSlide = 0;
 
