@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpInterceptorFn } from '@angular/common/http';
 
-import { commercetoolsAuthInterceptor } from './commercetools-auth-interceptor';
+import { commercetoolsAuthInterceptor } from './auth.interceptor';
 
 describe('commercetoolsAuthInterceptor', () => {
   const interceptor: HttpInterceptorFn = (req, next) => 

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CommercetoolsProducts } from './commercetools-products';
+import { CommercetoolsProducts } from './commercetools-api.service';
 
 describe('CommercetoolsProducts', () => {
   let service: CommercetoolsProducts;
