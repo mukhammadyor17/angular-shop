@@ -1,11 +1,10 @@
 import { Routes } from '@angular/router';
-import { MainLayout } from './components/layouts/main-layout/main-layout';
-import { AuthLayout } from './components/layouts/auth-layout/auth-layout';
-import { HomePage } from './pages/home-page/home-page';
-import { LoginPage } from './pages/login-page/login-page';
-import { CatalogPage } from './pages/catalog-page/catalog-page';
-import { ProfilePage } from './pages/profile-page/profile-page';
-import { authGuard } from './guards/auth-guard';
+import { MainLayout } from './shared/ui/main-layout/main-layout';
+import { AuthLayout } from './shared/ui/auth-layout/auth-layout';
+import { HomePage } from './features/home/home-page';
+import { LoginPage } from './features/auth/login-page/login-page';
+import { CatalogPage } from './features/catalog/catalog-page';
+import { ProfilePage } from './features/profile/profile-page';
 
 export const routes: Routes = [
   {
@@ -30,19 +29,14 @@ export const routes: Routes = [
       {
         path: 'about',
         title: 'About us',
-        loadComponent: () => 
-          import('./pages/about-us/about-us').then(
-            (m) => m.AboutUs
-          ),
+        loadComponent: () => import('./features/about/about-page').then((m) => m.AboutPage),
       },
       {
         path: 'wishlist',
         title: 'wishlist',
-        loadComponent: () => 
-        import('./pages/wishlist/wishlist').then(
-        (m) => m.Wishlist
-      ),
-  },
+        loadComponent: () =>
+          import('./features/wishlist/wishlist-page').then((m) => m.WishlistPage),
+      },
     ],
   },
   {
@@ -58,9 +52,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    loadComponent: () => 
-      import('./pages/not-found-page/not-found-page').then(
-        (m) => m.NotFoundPage
-      ),
-  }
+    loadComponent: () => import('./features/not-found/not-found-page').then((m) => m.NotFoundPage),
+  },
 ];
