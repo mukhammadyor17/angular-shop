@@ -27,7 +27,7 @@ teamMembers: TeamMemberInterface[] = [
     {
     name: 'Askhat Tassybayev',
     role: 'frontend developer',
-    bio: 'some text that will be implemented later.some text that will be implemented later.some text that will be implemented later.some text that will be implemented later.some text that will be implemented later.some text that will be implemented later.some text that will be implemented later.some text that will be implemented later.some text that will be implemented later.some text that will be implemented later.some text that will be implemented later.some text that will be implemented later.some text that will be implemented later.',
+    bio: 'some text that will be implemented later.some text that will be implemented later.some text that will be implemented later.some text that will be implemented later.',
     image: '',
     github: 'https://github.com/aseke09',
   },
