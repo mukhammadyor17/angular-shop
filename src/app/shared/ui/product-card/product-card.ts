@@ -1,13 +1,5 @@
 import { Component, input, output } from '@angular/core';
-
-export interface ProductCardData {
-  name: string;
-  imageUrl: string;
-  rating: number;
-  price: number;
-  oldPrice: number | null;
-  discount: string | null;
-}
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-product-card',
@@ -17,9 +9,9 @@ export interface ProductCardData {
   styleUrl: './product-card.scss',
 })
 export class ProductCard {
-  product = input.required<ProductCardData>()
+  product = input.required<Product>()
 
-  addToCart = output<ProductCardData>();
+  addToCart = output<Product>();
 
   onAddToCart(): void {
     this.addToCart.emit(this.product());

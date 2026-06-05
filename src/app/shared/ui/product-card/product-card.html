@@ -3,11 +3,11 @@
     <img
       class="product-card__image"
       [src]="product().imageUrl"
-      [alt]="product().name"
+      [alt]="product().title"
     />
   </div>
 
-  <h3 class="product-card__title">{{ product().name }}</h3>
+  <h3 class="product-card__title">{{ product().title }}</h3>
 
   <div class="product-card__rating">
     <span class="product-card__stars">★★★★★</span>
@@ -22,7 +22,7 @@
     }
 
     @if (product().discount) {
-      <span class="product-card__discount">{{ product().discount }}</span>
+      <span class="product-card__discount">{{ product().discount }}%</span>
     }
   </div>
 

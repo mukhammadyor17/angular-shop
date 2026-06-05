@@ -22,6 +22,20 @@ export const routes: Routes = [
         component: CatalogPage,
       },
       {
+        path: 'cart',
+        title: 'Cart',
+        loadComponent: () =>
+          import('./features/cart/cart-page').then((m) => m.CartPage),
+      },
+      {
+        path: 'product/:slug',
+        title: 'Product Details',
+        loadComponent: () => 
+          import('./features/product-details/product-details-page').then(
+            (m) => m.ProductDetailsPage
+          ),
+      },
+      {
         path: 'profile',
         title: 'Profile Page',
         component: ProfilePage,

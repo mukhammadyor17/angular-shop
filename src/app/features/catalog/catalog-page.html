@@ -1,6 +1,16 @@
-<div class="container">
-  <app-product-card 
-    [product]="product"
-    (addToCart)="onAddToCart($event)"
+@if (isLoading()) {
+  <p>Loading products...</p>
+}
+
+@if (error()) {
+  <p>{{ error() }}</p>
+}
+
+<div class="catalog-page">
+  @for (product of products(); track product.id) {
+    <app-product-card
+      [product]="product"
+      (addToCart)="onAddToCart($event)"
     />
+  }
 </div>
