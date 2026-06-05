@@ -41,6 +41,12 @@ export const routes: Routes = [
     loadComponent: () => import('./features/auth/login-page/login-page').then((m) => m.LoginPage),
   },
   {
+    path: 'register',
+    title: 'Register Page',
+    loadComponent: () =>
+      import('./features/auth/register-page/register-page').then((m) => m.RegisterPage),
+  },
+  {
     path: '**',
     title: 'Not Found',
     loadComponent: () => import('./features/not-found/not-found-page').then((m) => m.NotFoundPage),
