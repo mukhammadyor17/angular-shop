@@ -1,33 +1,50 @@
 <div class="card">
-    <!-- team member photo-->
-    <img 
-    class="card-image"
-    [src]="member().image"
-    [alt]="member().name"
+
+  <!-- team member avatar -->
+  <div class="card-top">
+
+    <img
+      class="card-image"
+      [src]="member().image"
+      [alt]="member().name"
     >
 
-    <div class="card-content">
+    <!-- team member bio block with short-text pipe -->
+    <div class="bio-block">
 
-            <!-- team member main info-->
-        <div class="card-header">
-            <h3>{{ member().name }}</h3>
-            <p>{{ member().role }}</p>
-        </div>
+      <p class="bio text-muted">
+        {{ isExpanded ? member().bio
+        : member().bio | shortText }}
+      </p>
 
-            <!-- custom pipe for bio -->
-        <p class="bio text-muted">
-            {{ member().bio }}
-        </p>
-
-            <!-- team member github link-->
-        <a
-        class="btn btn-primary"
-        [href]="member().github"
-        target="_blank"
-        (click)="onGithubClick()"
-        >
-        GitHub
-        </a>
+      <button
+        class="btn-read-more"
+        (click)="isExpanded = !isExpanded"
+      >
+        {{ isExpanded ? 'show less' : 'read more' }}
+      </button>
 
     </div>
+
+  </div>
+
+  <!-- team member name / role / github link -->
+  <div class="card-content">
+
+    <div class="card-header">
+      <h3>{{ member().name }}</h3>
+      <p class="role">{{ member().role }}</p>
+    </div>
+
+    <a
+      class="btn btn-primary btn-github"
+      [href]="member().github"
+      target="_blank"
+      (click)="onGithubClick()"
+    >
+      GitHub
+    </a>
+
+  </div>
+
 </div>
