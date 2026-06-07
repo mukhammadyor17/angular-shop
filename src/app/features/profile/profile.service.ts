@@ -7,7 +7,7 @@ import { User } from './user.interface';
 @Injectable({
   providedIn: 'root',
 })
-export class Profile {
+export class ProfileService {
   private http = inject(HttpClient);
   private apiUrl = 'http://loacalhost:3000'; 
 
