@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { User } from './user.interface';
+import { User } from '../../shared/models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,11 +24,11 @@ export class ProfileService {
     );
   }
 
-  /** avatar updating (if media will be separately on backend)*/
-  changePhoto(photoUrl: string) {
+  /** avatar updating */
+  changePhoto(avatarUrl: string) {
     return this.http.patch(
       `${this.apiUrl}/auth/change-photo`,
-      { photoUrl, }
+      { avatarUrl, }
     );
   }
 }

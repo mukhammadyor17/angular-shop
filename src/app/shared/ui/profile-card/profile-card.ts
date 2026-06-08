@@ -9,5 +9,5 @@ import { BaseCard } from '../base-card/base-card';
   styleUrl: './profile-card.scss',
 })
 export class ProfileCard {
-  user = input<User>();
+  user = input.required<User>();
 }

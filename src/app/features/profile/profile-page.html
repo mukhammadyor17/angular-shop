@@ -1,4 +1,5 @@
-<div class="profile-page">
-  <app-base-title>Profile Page</app-base-title>
-  <app-profile-card [user]="currentUser"></app-profile-card>
-</div>
+<section class="profile-page">
+    <div class="container">
+        <app-profile-card [user]="user()!"/>
+    </div>
+</section>
