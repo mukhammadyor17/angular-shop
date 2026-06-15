@@ -5,15 +5,16 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProfileService } from '../profile/profile.service';
 import { ProfileCard } from '../../shared/ui/profile-card/profile-card';
 import { User } from '../../shared/models/user.model';
+import { BaseTitle } from '../../shared/ui/base-title/base-title';
 
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
   imports: [
-    ReactiveFormsModule
-    ,
+    ReactiveFormsModule,
     ProfileCard,
+    BaseTitle,
   ],
   templateUrl: './profile-page.html',
   styleUrls: ['./profile-page.scss'],
@@ -33,6 +34,7 @@ export class ProfilePage implements OnInit {
     profileForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2),],],
       email: ['', [Validators.required, Validators.email,],],
+      birthDate: ['', Validators.required],
       avatarUrl: [''],
     });
 
@@ -51,6 +53,7 @@ export class ProfilePage implements OnInit {
           this.profileForm.patchValue({
             name: user.name,
             email: user.email,
+            birthDate: user.birthDate,
             avatarUrl: user.avatarUrl,
           });
         },
@@ -70,11 +73,12 @@ export class ProfilePage implements OnInit {
         return
       }
 
-      const {name, email, avatarUrl,} = this.profileForm.getRawValue();
+      const {name, email, birthDate, avatarUrl,} = this.profileForm.getRawValue();
 
       this.profileService.updateProfile({
         name: name || '', 
         email: email || '', 
+        birthDate: birthDate || null,
         }).subscribe();
 
       this.profileService.changePhoto(avatarUrl || '').subscribe();
@@ -90,6 +94,7 @@ export class ProfilePage implements OnInit {
           ...currentUser,
           name: name || '',
           email: email || '',
+          birthDate: birthDate || null,
           avatarUrl: avatarUrl || '',
         }
       })
