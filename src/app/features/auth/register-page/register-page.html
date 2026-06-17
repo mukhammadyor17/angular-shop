@@ -2,11 +2,22 @@
   <a class="brand" routerLink="/">SHOP.CO</a>
 
   <div class="heading">
-    <h1>Welcome Back</h1>
-    <p>Sign in to continue shopping.</p>
+    <h1>Create Account</h1>
+    <p>Join us and start shopping.</p>
   </div>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" novalidate>
+    <div class="field">
+      <input type="text" formControlName="name" placeholder="Full name" autocomplete="name"
+        [class.is-error]="(name.invalid && name.touched) || (submitted && name.invalid)" />
+      @if ((name.invalid && name.touched) || (submitted && name.invalid)) {
+      <span class="field-error">
+        @if (name.errors?.['required']) { Full name is required. }
+        @else if (name.errors?.['minlength']) { At least 2 characters. }
+      </span>
+      }
+    </div>
+
     <div class="field">
       <input type="email" formControlName="email" placeholder="Email address" autocomplete="email"
         [class.is-error]="(email.invalid && email.touched) || (submitted && email.invalid)" />
@@ -19,7 +30,7 @@
     </div>
 
     <div class="field">
-      <input type="password" formControlName="password" placeholder="Password" autocomplete="current-password"
+      <input type="password" formControlName="password" placeholder="Password" autocomplete="new-password"
         [class.is-error]="(password.invalid && password.touched) || (submitted && password.invalid)" />
       @if ((password.invalid && password.touched) || (submitted && password.invalid)) {
       <span class="field-error">
@@ -27,16 +38,23 @@
         @else if (password.errors?.['minlength']) { At least 8 characters. }
       </span>
       }
-      <a href="#" class="forgot">Forgot password?</a>
     </div>
 
-    <button type="submit" class="btn btn-primary submit-btn">Sign In</button>
+    <div class="field">
+      <input type="url" formControlName="photoUrl" placeholder="Photo URL (optional)" autocomplete="photo"
+        [class.is-error]="photoUrl.invalid && photoUrl.touched" />
+      @if (photoUrl.invalid && photoUrl.touched) {
+      <span class="field-error">Enter a valid URL (https://...).</span>
+      }
+    </div>
+
+    <button type="submit" class="btn btn-primary submit-btn">Create Account</button>
   </form>
 
   <div class="divider"><span>OR</span></div>
 
   <p class="register-prompt">
-    Don't have an account?
-    <a routerLink="/register" class="register-link">Sign Up</a>
+    Already have an account?
+    <a routerLink="/login" class="register-link">Sign In</a>
   </p>
 </div>

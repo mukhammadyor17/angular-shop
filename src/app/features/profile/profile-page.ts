@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { BaseTitle } from '../../shared/ui/base-title/base-title';
 import { ProfileCard } from '../../shared/ui/profile-card/profile-card';
 import { User } from '../../shared/models/user.model';
 
 @Component({
   selector: 'app-profile-page',
-  imports: [BaseTitle, ProfileCard],
+  imports: [ProfileCard],
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.scss',
 })

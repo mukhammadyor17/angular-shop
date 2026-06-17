@@ -1,0 +1,94 @@
+.home-page {
+  .hero {
+    height: 600px;
+    background: #f2f0f1 url('/images/hero.png') no-repeat center center;
+    display: flex;
+    flex-direction: column;
+
+    .container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 32px;
+    }
+
+    .hero-title {
+      font-size: 64px;
+      line-height: 64px;
+      font-weight: bold;
+      color: #111;
+      font-family: var(--font-heading);
+      max-width: 570px;
+    }
+
+    .hero-description {
+      font-size: 16px;
+      line-height: 22px;
+      color: rgba(0, 0, 0, 0.6);
+      max-width: 570px;
+    }
+
+    .statistics {
+      display: flex;
+      gap: 32px;
+
+      .line {
+        width: 1px;
+        height: 40px;
+        background-color: #ccc;
+      }
+
+      .statistic {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+
+        .number {
+          font-size: 24px;
+          font-weight: bold;
+        }
+
+        .label {
+          font-size: 14px;
+          color: #666;
+        }
+      }
+    }
+  }
+
+  .new-arrivals,
+  .top-sales {
+    padding: 64px 0;
+
+    .base-title {
+      text-align: center;
+    }
+
+    .products-list {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(4, minmax(200px, 1fr));
+    }
+
+    .catalog-link {
+      display: block;
+      width: 200px;
+      height: 48px;
+      margin: 40px auto 0;
+      border: 1px solid #111;
+      padding: 12px 0;
+      text-align: center;
+      font-weight: bold;
+      color: #111;
+      text-decoration: none;
+      border-radius: 24px;
+    }
+  }
+
+  .top-sales {
+    border-top: 1px solid #eee;
+  }
+}

@@ -1,10 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainLayout } from './shared/ui/main-layout/main-layout';
-import { AuthLayout } from './shared/ui/auth-layout/auth-layout';
 import { HomePage } from './features/home/home-page';
-import { LoginPage } from './features/auth/login-page/login-page';
-import { CatalogPage } from './features/catalog/catalog-page';
-import { ProfilePage } from './features/profile/profile-page';
 
 export const routes: Routes = [
   {
@@ -19,7 +15,7 @@ export const routes: Routes = [
       {
         path: 'catalog',
         title: 'Catalog Page',
-        component: CatalogPage,
+        loadComponent: () => import('./features/catalog/catalog-page').then((m) => m.CatalogPage),
       },
       {
         path: 'cart',
@@ -38,7 +34,7 @@ export const routes: Routes = [
       {
         path: 'profile',
         title: 'Profile Page',
-        component: ProfilePage,
+        loadComponent: () => import('./features/profile/profile-page').then((m) => m.ProfilePage),
       },
       {
         path: 'about',
@@ -55,17 +51,18 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: AuthLayout,
-    children: [
-      {
-        path: '',
-        title: 'Login Page',
-        component: LoginPage,
-      },
-    ],
+    title: 'Login Page',
+    loadComponent: () => import('./features/auth/login-page/login-page').then((m) => m.LoginPage),
+  },
+  {
+    path: 'register',
+    title: 'Register Page',
+    loadComponent: () =>
+      import('./features/auth/register-page/register-page').then((m) => m.RegisterPage),
   },
   {
     path: '**',
+    title: 'Not Found',
     loadComponent: () => import('./features/not-found/not-found-page').then((m) => m.NotFoundPage),
   },
 ];
