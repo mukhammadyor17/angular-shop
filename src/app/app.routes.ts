@@ -18,6 +18,20 @@ export const routes: Routes = [
         loadComponent: () => import('./features/catalog/catalog-page').then((m) => m.CatalogPage),
       },
       {
+        path: 'cart',
+        title: 'Cart',
+        loadComponent: () =>
+          import('./features/cart/cart-page').then((m) => m.CartPage),
+      },
+      {
+        path: 'product/:slug',
+        title: 'Product Details',
+        loadComponent: () => 
+          import('./features/product-details/product-details-page').then(
+            (m) => m.ProductDetailsPage
+          ),
+      },
+      {
         path: 'profile',
         title: 'Profile Page',
         loadComponent: () => import('./features/profile/profile-page').then((m) => m.ProfilePage),
