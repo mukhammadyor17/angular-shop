@@ -38,7 +38,7 @@
           <img
             class="profile-photo"
             [src]="
-              profileForm.value.avatarUrl ||
+              profileForm.value.photoUrl ||
               'assets/images/avatar-placeholder.png'
             "
             alt="Profile photo"
@@ -70,7 +70,17 @@
 
             <input
               type="text"
-              formControlName="name"
+              formControlName="firstName"
+              [readonly]="!isEditMode()"
+            />
+
+            <label>
+              Last Name
+            </label>
+
+            <input
+              type="text"
+              formControlName="lastName"
               [readonly]="!isEditMode()"
             />
 
@@ -98,7 +108,7 @@
 
             <input
               type="date"
-              formControlName="birthDate"
+              formControlName="dateOfBirth"
               [readonly]="!isEditMode()"
             />
 

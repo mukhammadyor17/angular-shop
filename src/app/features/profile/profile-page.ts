@@ -32,10 +32,11 @@ export class ProfilePage implements OnInit {
 
     /* reactive forms */
     profileForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2),],],
+      firstName: ['', [Validators.required, Validators.minLength(2),],],
+      lastName: ['', [Validators.required, Validators.minLength(2),],],
       email: ['', [Validators.required, Validators.email,],],
-      birthDate: ['', Validators.required],
-      avatarUrl: [''],
+      dateOfBirth: ['', Validators.required],
+      photoUrl: [''],
     });
 
     ngOnInit(): void {
@@ -51,10 +52,11 @@ export class ProfilePage implements OnInit {
           this.user.set(user);            
 
           this.profileForm.patchValue({
-            name: user.name,
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email,
-            birthDate: user.birthDate,
-            avatarUrl: user.avatarUrl,
+            dateOfBirth: user.dateOfBirth,
+            photoUrl: user.photoUrl,
           });
         },
       });
@@ -73,15 +75,16 @@ export class ProfilePage implements OnInit {
         return
       }
 
-      const {name, email, birthDate, avatarUrl,} = this.profileForm.getRawValue();
+      const {firstName, lastName, email, dateOfBirth, photoUrl,} = this.profileForm.getRawValue();
 
       this.profileService.updateProfile({
-        name: name || '', 
+        firstName: firstName || '', 
+        lastName: lastName || '',
         email: email || '', 
-        birthDate: birthDate || null,
+        dateOfBirth: dateOfBirth || null,
         }).subscribe();
 
-      this.profileService.changePhoto(avatarUrl || '').subscribe();
+      this.profileService.changePhoto(photoUrl || '').subscribe();
 
       this.isEditMode.set(false);
 
@@ -92,10 +95,11 @@ export class ProfilePage implements OnInit {
 
         return {
           ...currentUser,
-          name: name || '',
+          firstName: firstName || '',
+          lastName: lastName || '',
           email: email || '',
-          birthDate: birthDate || null,
-          avatarUrl: avatarUrl || '',
+          dateOfBirth: dateOfBirth || null,
+          photoUrl: photoUrl || '',
         }
       })
     }
