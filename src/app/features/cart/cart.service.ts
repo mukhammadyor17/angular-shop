@@ -18,6 +18,8 @@ export class CartService {
     this.items().reduce((sum, item) => sum + item.product.price * item.quantity, 0),
   );
 
+  readonly totalCount = computed(() => this.items().length);
+
   addItem(item: CartItem) {
     this.items.update((items) => {
       const existing = items.find((i) => i.product.id === item.product.id);
@@ -29,6 +31,15 @@ export class CartService {
       }
 
       return [...items, item];
+    });
+  }
+
+  decreaseQuantity(id: string) {
+    this.items.update((items) => {
+      const existing = items.find((i) => i.product.id === id);
+      if (!existing) return items;
+      if (existing.quantity <= 1) return items.filter((i) => i.product.id !== id);
+      return items.map((i) => (i.product.id === id ? { ...i, quantity: i.quantity - 1 } : i));
     });
   }
 
