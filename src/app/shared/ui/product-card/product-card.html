@@ -1,10 +1,8 @@
 <article class="product-card">
   <div class="product-card__image-wrapper">
-    <img
-      class="product-card__image"
-      [src]="product().imageUrl"
-      [alt]="product().title"
-    />
+    <div class="product-card__image-inner">
+      <img class="product-card__image" [ngSrc]="product().imageUrl" [alt]="product().title" fill />
+    </div>
   </div>
 
   <h3 class="product-card__title">{{ product().title }}</h3>
@@ -14,11 +12,11 @@
     <span>{{ product().rating }}/5</span>
   </div>
 
-   <div class="product-card__price-row">
-    <span class="product-card__price">${{ product().price }}</span>
+  <div class="product-card__price-row">
+    <span class="product-card__price">{{ product().price | formatPrice }}</span>
 
     @if (product().oldPrice) {
-      <span class="product-card__old-price">${{ product().oldPrice }}</span>
+      <span class="product-card__old-price">{{ product().oldPrice | formatPrice }}</span>
     }
 
     @if (product().discount) {
