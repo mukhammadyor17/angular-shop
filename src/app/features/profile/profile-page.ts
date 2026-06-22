@@ -1,6 +1,7 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { passwordMatchValidator } from './password-match.validator';
 
 import { ProfileService } from '../profile/profile.service';
 import { ProfileCard } from '../../shared/ui/profile-card/profile-card';
@@ -102,6 +103,34 @@ export class ProfilePage implements OnInit {
           photoUrl: photoUrl || '',
         }
       })
+    }
+
+    /* change password logic implementation */
+    passwordForm = this.fb.group ({
+      currentPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).{8,}$/),]],
+      confirmPassword: ['', Validators.required,],
+    },
+    {validators: passwordMatchValidator(),}
+    )
+
+    savePassword(): void {
+      if (this.passwordForm.invalid) {
+        this.passwordForm.markAllAsTouched();
+        return;
+      }
+
+      const {currentPassword, newPassword, confirmPassword} = this.passwordForm.getRawValue();
+
+      this.profileService.changePassword({
+        currentPassword: currentPassword || '',
+        newPassword: newPassword || '',
+        confirmPassword: confirmPassword || '',
+      }).subscribe({
+        /* sensitive data, clean up after being updated */
+        next: () => {this.passwordForm.reset();
+        }
+      });
     }
   }
 

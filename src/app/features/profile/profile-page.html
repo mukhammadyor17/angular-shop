@@ -38,7 +38,7 @@
           <img
             class="profile-photo"
             [src]="
-              profileForm.value.photoUrl ||
+              profileForm.get('photoUrl')?.value ||
               'assets/images/avatar-placeholder.png'
             "
             alt="Profile photo"
@@ -116,14 +116,120 @@
 
         </div>
 
+        @if (isEditMode()) {
         <button
           type="submit"
-          class="btn btn-primary btn-save"
-        >
+          class="btn btn-primary btn-save">
           Save Changes
         </button>
-
+      }
       </form>
+
+      <div class="password-content">
+          <h2 class="password-title">Change Password</h2>
+
+     <form
+    class="password-form"
+    [formGroup]="passwordForm"
+    (ngSubmit)="savePassword()"
+  >
+
+    <div class="profile-grid">
+
+      <div class="form-group">
+
+        <label>
+          Current Password
+        </label>
+
+        <input
+          type="password"
+          formControlName="currentPassword"
+        />
+
+        @if (
+          passwordForm.get('currentPassword')?.hasError('required') &&
+          passwordForm.get('currentPassword')?.touched
+        ) {
+          <p class="error-message">
+            Current password is required.
+          </p>
+        }
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          New Password
+        </label>
+
+        <input
+          type="password"
+          formControlName="newPassword"
+        />
+
+        @if (
+          passwordForm.get('newPassword')?.hasError('required') &&
+          passwordForm.get('newPassword')?.touched
+        ) {
+          <p class="error-message">
+            New password is required.
+          </p>
+        }
+
+        @if (
+          passwordForm.get('newPassword')?.hasError('pattern') &&
+          passwordForm.get('newPassword')?.touched
+        ) {
+          <p class="error-message">
+            Password must contain at least 8 characters,
+            including letters and digits.
+          </p>
+        }
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Confirm Password
+        </label>
+
+        <input
+          type="password"
+          formControlName="confirmPassword"
+        />
+
+        @if (
+          passwordForm.get('confirmPassword')?.hasError('required') &&
+          passwordForm.get('confirmPassword')?.touched
+        ) {
+          <p class="error-message">
+            Please confirm your password.
+          </p>
+        }
+
+      </div>
+
+    </div>
+
+    @if (
+      passwordForm.hasError('passwordMismatch') &&
+      passwordForm.get('confirmPassword')?.touched
+    ) {
+      <p class="error-message">Passwords do not match</p>
+    }
+
+    <button
+      type="submit"
+      class="btn btn-primary">
+      Update Password
+    </button>
+
+     </form>
+
+  </div>
 
     </div>
 

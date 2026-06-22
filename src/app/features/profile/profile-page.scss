@@ -24,8 +24,6 @@
   gap: var(--space-8);
 }
 
-// Grid layout simplifies future form scaling
-// without restructuring markup.
 .profile-grid {
   display: grid;
 
@@ -76,7 +74,7 @@
   object-fit: cover;
 }
 
-.save-btn {
+.btn-save {
   align-self: flex-start;
 }
 
@@ -95,4 +93,36 @@
   .btn-save {
     width: 100%;
   }
+}
+
+.password-content {
+  margin-top: var(--space-8);
+
+  border-top: 1px solid var(--color-border);
+
+  padding-top: var(--space-8);
+}
+
+.password-title {
+  margin: 0 0 var(--space-6);
+
+  font-family: var(--font-heading);
+
+  font-size: 24px;
+}
+
+.password-form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: var(--space-6);
+}
+
+.error-message {
+  margin: 0;
+
+  color: var(--color-danger);
+
+  font-size: 14px;
 }
