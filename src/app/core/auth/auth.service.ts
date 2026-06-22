@@ -70,4 +70,9 @@ export class AuthService {
   updateMe(payload: Partial<RegisterPayload>) {
     return this.http.post(`${this.baseUrl}/auth/@me`, payload);
   }
+
+  logout() {
+    this.accessToken = null;
+    localStorage.removeItem('accessToken');
+  }
 }
