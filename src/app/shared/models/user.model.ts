@@ -1,6 +1,11 @@
 export interface User {
-  id: number;
-  name: string;
+  id: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  avatarUrl: string;
+  photoUrl: string;
+  dateOfBirth: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
 }

@@ -20,15 +20,14 @@ export const routes: Routes = [
       {
         path: 'cart',
         title: 'Cart',
-        loadComponent: () =>
-          import('./features/cart/cart-page').then((m) => m.CartPage),
+        loadComponent: () => import('./features/cart/cart-page').then((m) => m.CartPage),
       },
       {
         path: 'product/:slug',
         title: 'Product Details',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./features/product-details/product-details-page').then(
-            (m) => m.ProductDetailsPage
+            (m) => m.ProductDetailsPage,
           ),
       },
       {
