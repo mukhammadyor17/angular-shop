@@ -12,7 +12,7 @@ import { BaseTitle } from '../../shared/ui/base-title/base-title';
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [
+  imports: [ 
     ReactiveFormsModule,
     ProfileCard,
     BaseTitle,
@@ -63,10 +63,23 @@ export class ProfilePage implements OnInit {
       });
     }
 
-    /* edit mode */
+    /* edit mode - cancel button restore original data */
     toggleEditMode(): void {
-      this.isEditMode.update((value) => !value);
-    }
+      if (this.isEditMode()) {
+        const user = this.user();
+
+        if (user) {
+          this.profileForm.patchValue({
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            dateOfBirth: user.dateOfBirth,
+            photoUrl: user.photoUrl,
+          });
+          }
+        }
+        this.isEditMode.update((value) => !value);
+      }
 
     /* save form mode */
     saveProfile(): void {
