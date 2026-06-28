@@ -1,6 +1,5 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { passwordMatchValidator } from './password-match.validator';
 
 import { ProfileService } from '../profile/profile.service';
@@ -24,14 +23,15 @@ export class ProfilePage implements OnInit {
 
     private fb = inject(FormBuilder);
     private profileService = inject(ProfileService);
-    private destroyRef = inject(DestroyRef); //destroy subscriptions
     
     /* signal cause UI state is local & reactive */
     isEditMode = signal (false);
+    /* loading state */
+    isSavingProfile = signal(false);
     /* for user state separate from form state */
     user = signal<User | null>(null);
 
-    /* reactive forms */
+    /* REACTIVE FORMS */
     profileForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2),],],
       lastName: ['', [Validators.required, Validators.minLength(2),],],
@@ -40,6 +40,16 @@ export class ProfilePage implements OnInit {
       photoUrl: [''],
     });
 
+    /* change password form implementation */
+    passwordForm = this.fb.group ({
+      currentPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).{8,}$/),]],
+      confirmPassword: ['', Validators.required,],
+    },
+    {validators: passwordMatchValidator(),}
+    );
+
+    // loading profile
     ngOnInit(): void {
       this.loadProfile();
     }
@@ -47,21 +57,26 @@ export class ProfilePage implements OnInit {
     private loadProfile(): void {
       this.profileService
       .getProfile()
-      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (user) => {
-          this.user.set(user);            
-
-          this.profileForm.patchValue({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            dateOfBirth: user.dateOfBirth,
-            photoUrl: user.photoUrl,
-          });
+          this.user.set(user);
+          this.patchProfileForm(user);
+        },
+        error: (err) => {
+          console.log('failed to load profile', err);
         },
       });
-    }
+    }   
+      private patchProfileForm(user: User): void {   
+        this.profileForm.patchValue({
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          dateOfBirth: user.dateOfBirth?.split('T')[0],
+          photoUrl: user.photoUrl,
+        });
+      };
+    
 
     /* edit mode - cancel button restore original data */
     toggleEditMode(): void {
@@ -69,13 +84,7 @@ export class ProfilePage implements OnInit {
         const user = this.user();
 
         if (user) {
-          this.profileForm.patchValue({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            dateOfBirth: user.dateOfBirth,
-            photoUrl: user.photoUrl,
-          });
+          this.patchProfileForm(user);
           }
         }
         this.isEditMode.update((value) => !value);
@@ -91,21 +100,19 @@ export class ProfilePage implements OnInit {
 
       const {firstName, lastName, email, dateOfBirth, photoUrl,} = this.profileForm.getRawValue();
 
+      this.isSavingProfile.set(true);
+
       this.profileService.updateProfile({
-        firstName: firstName || '', 
+        firstName: firstName || '',
         lastName: lastName || '',
-        email: email || '', 
+        email: email || '',
         dateOfBirth: dateOfBirth || null,
-        }).subscribe();
-
-      this.profileService.changePhoto(photoUrl || '').subscribe();
-
-      this.isEditMode.set(false);
-
-      this.user.update((currentUser) => {
-        if (!currentUser) {
-          return null;
-        }
+        photoUrl: photoUrl || '',
+      })
+        .subscribe({
+            next: () => {
+              this.user.update(currentUser => {
+            if (!currentUser) {return null;}
 
         return {
           ...currentUser,
@@ -114,36 +121,38 @@ export class ProfilePage implements OnInit {
           email: email || '',
           dateOfBirth: dateOfBirth || null,
           photoUrl: photoUrl || '',
-        }
-      })
-    }
+        };
+      });
 
-    /* change password logic implementation */
-    passwordForm = this.fb.group ({
-      currentPassword: ['', Validators.required],
-      newPassword: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).{8,}$/),]],
-      confirmPassword: ['', Validators.required,],
+      this.isEditMode.set(false);
+      this.isSavingProfile.set(false);
     },
-    {validators: passwordMatchValidator(),}
-    )
+
+        error: (err) => {
+          console.error('profile update failed',err);
+
+      this.isSavingProfile.set(false);
+    },
+  });
+};
 
     savePassword(): void {
       if (this.passwordForm.invalid) {
         this.passwordForm.markAllAsTouched();
         return;
       }
-
-      const {currentPassword, newPassword, confirmPassword} = this.passwordForm.getRawValue();
+      /* take values from form, destructuring*/
+      const {currentPassword, newPassword, confirmPassword} = this.passwordForm.getRawValue(); 
 
       this.profileService.changePassword({
         currentPassword: currentPassword || '',
         newPassword: newPassword || '',
         confirmPassword: confirmPassword || '',
-      }).subscribe({
+      })
+      .subscribe({
         /* sensitive data, clean up after being updated */
         next: () => {this.passwordForm.reset();
         }
       });
     }
   }
-

@@ -119,8 +119,9 @@
         @if (isEditMode()) {
         <button
           type="submit"
-          class="btn btn-primary btn-save">
-          Save Changes
+          class="btn btn-primary btn-save"
+          [disabled]="isSavingProfile()">
+          {{ isSavingProfile() ? 'saving...' : 'Save Changes'}}
         </button>
       }
       </form>
@@ -223,7 +224,7 @@
 
     <button
       type="submit"
-      class="btn btn-primary">
+      class="btn btn-primary btn-save">
       Update Password
     </button>
 
