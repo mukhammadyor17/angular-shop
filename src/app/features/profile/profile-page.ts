@@ -1,10 +1,11 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { passwordMatchValidator } from './password-match.validator';
 
 import { ProfileService } from '../profile/profile.service';
 import { ProfileCard } from '../../shared/ui/profile-card/profile-card';
 import { User } from '../../shared/models/user.model';
+import { DeliveryAddress } from '../../shared/models/delivery-address.model';
 
 
 @Component({
@@ -22,14 +23,20 @@ export class ProfilePage implements OnInit {
     private fb = inject(FormBuilder);
     private profileService = inject(ProfileService);
     
+    
     /* signal cause UI state is local & reactive */
     isEditMode = signal (false);
     /* loading state */
     isSavingProfile = signal(false);
     /* for user state separate from form state */
     user = signal<User | null>(null);
+    /* address */
+    addresses = signal<DeliveryAddress[]>([]);
+    isLoadingAddresses = signal(false);
 
-    /* REACTIVE FORMS */
+
+    /* ------REACTIVE FORMS------ */
+    /* profile form */
     profileForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2),],],
       lastName: ['', [Validators.required, Validators.minLength(2),],],
@@ -47,11 +54,17 @@ export class ProfilePage implements OnInit {
     {validators: passwordMatchValidator(),}
     );
 
-    // loading profile
+    /* delivery adresses */
+    addressForm: FormArray = this.fb.array([]);
+
+
+
     ngOnInit(): void {
       this.loadProfile();
+      this.loadAddresses();
     }
 
+    /* ------PROFILE------ */  
     private loadProfile(): void {
       this.profileService
       .getProfile()
@@ -134,6 +147,8 @@ export class ProfilePage implements OnInit {
   });
 };
 
+
+  /* ------PASSWORD------ */
     savePassword(): void {
       if (this.passwordForm.invalid) {
         this.passwordForm.markAllAsTouched();
@@ -152,5 +167,74 @@ export class ProfilePage implements OnInit {
         next: () => {this.passwordForm.reset();
         }
       });
+    }
+
+
+    /* ------ADDRESS------ */
+    get addressesForm(): FormArray {
+      return this.addressForm;
+    }
+
+    private createAddressForm( address?: DeliveryAddress,) {
+      return this.fb.group({
+        id: [address?.id ?? '',],
+        fullName: [address?.fullName ?? '', Validators.required,],
+        phone: [address?.phone ?? '', Validators.required,],
+        country: [address?.country ?? '',],
+        city: [address?.city ?? '', Validators.required,],
+        street: [ address?.city ?? '', Validators.required,],
+        building: [address?.building ?? '', Validators.required,],
+        appartment: [address?.appartment ?? '',],
+        postalCode: [address?.postalCode ?? '',],
+        comment: [address?.comment ?? '',],
+        isDefault: [address?.isDefault ?? false,],
+      });
+    }
+
+    private loadAddresses(): void {
+      this.isLoadingAddresses.set(true);
+
+      this.profileService
+      .getAddresses()
+      .subscribe({
+        next: addresses => {
+          this.addresses.set(addresses);
+          this.addressForm.clear();
+
+          addresses.forEach(address => {
+            this.addressForm.push(this.createAddressForm(address,),
+            );
+          });
+
+          this.isLoadingAddresses.set(false);
+        },
+          error: () => {
+            this.isLoadingAddresses.set(false);
+          },
+        });
+    }
+    
+    /* empty form for fill in first */
+    addAddress(): void {
+      this.addressForm.push(this.createAddressForm(),);
+    }
+
+    saveAddress(index: number,): void {
+      const form = this.addressForm.at(index);
+
+      if (form.invalid) {
+        form.markAllAsTouched();
+        return;
+      }
+
+      const value = form.getRawValue();
+
+      this.profileService
+      .createAddress(value as DeliveryAddress,)
+      .subscribe({
+        next: () => {
+          this.loadAddresses();
+      },
+    });
     }
   }

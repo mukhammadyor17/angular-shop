@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { User } from '../../shared/models/user.model';
+import { DeliveryAddress } from '../../shared/models/delivery-address.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,14 +17,14 @@ export class ProfileService {
     );
   }
 
-  /* partial<User> allows updating only changed fields without requiring the whole user obj */
+  /* ------PARTIAL USER UPDATE------ */
   updateProfile(data: Partial<User>) {
     return this.http.patch(
       `${this.apiUrl}/auth/@me`, data
     );
   }
 
-  /** avatar updating */
+  /** ------AVATAR UPDATE------ */
   changePhoto(photoUrl: string) {
     return this.http.patch(
       `${this.apiUrl}/auth/change-photo`,
@@ -31,7 +32,7 @@ export class ProfileService {
     );
   }
 
-  /* change password logic */
+  /* ------PASSWORD------ */
   changePassword (data: {
     currentPassword: string;
     newPassword: string;
@@ -39,5 +40,28 @@ export class ProfileService {
   }) {
     return this.http.post(`${this.apiUrl}/auth/change-my-password`, data)
   }
-  
+
+  /* ------ADDRESS MANAGEMENT------ */
+  getAddresses(): Observable<DeliveryAddress[]> {
+    return this.http.get<DeliveryAddress[]>(
+      `${this.apiUrl}/delivery-addresses`
+    );
+  }
+
+  createAddress(data: DeliveryAddress) {
+    return this.http.post(`${this.apiUrl}/delivery-addresses`, data);
+  }
+
+  /* partial update only modified fields */
+  updateAddress(id: string, data: Partial<DeliveryAddress>,) {
+    return this.http.patch(`${this.apiUrl}/delivery-addresses/${id}`, data);
+  }
+
+  deleteAddress(id: string) {
+    return this.http.delete(`${this.apiUrl}/delivery-addresses/${id}`,);
+  }
+
+  setDefaultAddress(id: string) {
+    return this.http.patch(`${this.apiUrl}/delivery-addresses/${id}/default`, {},);
+  }
 }
