@@ -5,7 +5,6 @@ import { passwordMatchValidator } from './password-match.validator';
 import { ProfileService } from '../profile/profile.service';
 import { ProfileCard } from '../../shared/ui/profile-card/profile-card';
 import { User } from '../../shared/models/user.model';
-import { BaseTitle } from '../../shared/ui/base-title/base-title';
 
 
 @Component({
@@ -14,7 +13,6 @@ import { BaseTitle } from '../../shared/ui/base-title/base-title';
   imports: [ 
     ReactiveFormsModule,
     ProfileCard,
-    BaseTitle,
   ],
   templateUrl: './profile-page.html',
   styleUrls: ['./profile-page.scss'],
