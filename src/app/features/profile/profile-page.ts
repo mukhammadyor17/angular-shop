@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProfileCard } from '../../shared/ui/profile-card/profile-card';
 import { User } from '../../shared/models/user.model';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -8,11 +9,14 @@ import { User } from '../../shared/models/user.model';
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.scss',
 })
-export class ProfilePage {
-  currentUser: User = {
-    id: 1,
-    name: 'John Doe',
-    email: 'j@gmail.com',
-    avatarUrl: 'https://i.pravatar.cc/150',
-  };
+export class ProfilePage implements OnInit {
+  private readonly authService = inject(AuthService);
+
+  user = signal<User | null>(null);
+
+  ngOnInit(): void {
+    this.authService.getMe().subscribe((response) => {
+      this.user.set(response as User);
+    });
+  }
 }
