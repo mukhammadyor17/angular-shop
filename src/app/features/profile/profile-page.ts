@@ -6,9 +6,6 @@ import { ProfileService } from '../profile/profile.service';
 import { ProfileCard } from '../../shared/ui/profile-card/profile-card';
 import { User } from '../../shared/models/user.model';
 import { DeliveryAddress } from '../../shared/models/delivery-address.model';
-import { takeUntil } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
 
 
 @Component({
@@ -36,7 +33,7 @@ export class ProfilePage implements OnInit {
     /* address */
     addresses = signal<DeliveryAddress[]>([]);
     isLoadingAddresses = signal(false);
-    isSavingAddresses = signal(false);
+    isSavingAddress = signal(false);
 
 
     /* ------REACTIVE FORMS------ */
@@ -221,11 +218,15 @@ export class ProfilePage implements OnInit {
     
     private refreshAddresses(): void {
       this.loadAddresses();
-      this.isSavingAddresses.set(false);
+      this.isSavingAddress.set(false);
     }
     
     addAddress(): void {
-      this.addressForm.push(this.createAddressForm(),);
+      this.addressForm.push(this.createAddressForm(),)
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      });
     }
 
     /* saving address logic*/
@@ -237,7 +238,7 @@ export class ProfilePage implements OnInit {
         return;
       } 
 
-      this.isSavingAddresses.set(true);
+      this.isSavingAddress.set(true);
 
       const value = form.getRawValue() as DeliveryAddress;
       
@@ -249,7 +250,7 @@ export class ProfilePage implements OnInit {
             this.refreshAddresses();
           },
           error: () => {
-            this.isSavingAddresses.set(false);
+            this.isSavingAddress.set(false);
           },
         })
         return;
@@ -263,7 +264,7 @@ export class ProfilePage implements OnInit {
             this.refreshAddresses();
           },
           error: () => {
-            this.isSavingAddresses.set(false);
+            this.isSavingAddress.set(false);
           },
         });
       }
