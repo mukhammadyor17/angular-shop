@@ -1,4 +1,4 @@
-## Sprint 4
+## Sprint 3
  - development notes
 
 #### Dina Kor | for 2026-07-03 (lazy coders team)
