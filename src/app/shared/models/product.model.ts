@@ -3,8 +3,9 @@ export interface Product {
   title: string;
   slug: string;
   imageUrl: string;
-  rating: number;
-  price: number;
+  rating: string;
+  price: string;
   oldPrice: number | null;
   discount: number | null;  
+  description?: string;
 }

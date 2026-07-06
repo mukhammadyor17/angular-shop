@@ -29,10 +29,13 @@
     <div class="container">
       <div class="base-title">NEW ARRIVALS</div>
       <div class="products-list">
-        <app-product-card [product]="product"></app-product-card>
-        <app-product-card [product]="product"></app-product-card>
-        <app-product-card [product]="product"></app-product-card>
-        <app-product-card [product]="product"></app-product-card>
+        @for (product of newArrivals(); track product.id) {
+          <app-product-card 
+            [product]="product"
+            (addToCart)="onAddToCart($event)"
+          >
+          </app-product-card>
+        }
       </div>
       <a class="catalog-link" routerLink="/catalog">View All</a>
     </div>
@@ -41,10 +44,13 @@
     <div class="container">
       <div class="base-title">TOP SALES</div>
       <div class="products-list">
-        <app-product-card [product]="product"></app-product-card>
-        <app-product-card [product]="product"></app-product-card>
-        <app-product-card [product]="product"></app-product-card>
-        <app-product-card [product]="product"></app-product-card>
+        @for (product of topSales(); track product.id) {
+          <app-product-card 
+            [product]="product"
+            (addToCart)="onAddToCart($event)"
+          >
+          </app-product-card>
+        }
       </div>
       <a class="catalog-link" routerLink="/catalog">View All</a>
     </div>

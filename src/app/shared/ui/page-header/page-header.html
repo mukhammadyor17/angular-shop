@@ -9,7 +9,13 @@
       <a routerLink="/about" routerLinkActive="active">About Us</a>
       <a routerLink="/contact" routerLinkActive="active">Contact</a>
       <a routerLink="/cart" routerLinkActive="active">
-        <mat-icon>shopping_cart</mat-icon>
+        <mat-icon
+          [matBadge]="cartCount()"
+          matBadgeColor="warn"
+          [matBadgeHidden]="cartCount() === 0"
+        >
+          shopping_cart
+        </mat-icon>
       </a>
       <a routerLink="/profile" routerLinkActive="active">
         <mat-icon>account_circle</mat-icon>

@@ -1,0 +1,43 @@
+.catalog-page {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.catalog-header {
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem;
+  }
+
+  p {
+    color: #888;
+    margin: 0;
+  }
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.loading-state {
+  display: flex;
+  justify-content: center;
+  padding: 5rem 0;
+}
+
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 0;
+  color: #e44;
+  gap: 0.5rem;
+
+  mat-icon { font-size: 48px; width: 48px; height: 48px; }
+}

@@ -3,11 +3,13 @@ import { ProductCard } from '../../shared/ui/product-card/product-card';
 import { Product } from '../../shared/models/product.model';
 import { CartService } from '../cart/cart.service';
 import { CatalogService } from './catalog.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-catalog-page',
   standalone: true,
-  imports: [ProductCard],
+  imports: [ProductCard, MatProgressSpinnerModule, MatIconModule],
   templateUrl: './catalog-page.html',
   styleUrl: './catalog-page.scss',
 })
@@ -18,21 +20,6 @@ export class CatalogPage implements OnInit {
   readonly products = signal<Product[]>([]);
   readonly isLoading = signal(false);
   readonly error = signal<string | null>(null);
-
-  // ngOnInit(): void {
-  //   this.isLoading.set(true);
-
-  //   this.catalogService.getProducts().subscribe({
-  //     next: (products) => {
-  //       this.products.set(products);
-  //       this.isLoading.set(false);
-  //     },
-  //     error: () => {
-  //       this.error.set('Failed to load products');
-  //       this.isLoading.set(false);
-  //     },
-  //   });
-  // }
 
   ngOnInit(): void {
     this.isLoading.set(true);

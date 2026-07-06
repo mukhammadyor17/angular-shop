@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { MainLayout } from './shared/ui/main-layout/main-layout';
 import { HomePage } from './features/home/home-page';
+import { cartGuard } from './features/cart/cart.guard';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,7 @@ export const routes: Routes = [
       {
         path: 'cart',
         title: 'Cart',
+        canActivate: [cartGuard],
         loadComponent: () =>
           import('./features/cart/cart-page').then((m) => m.CartPage),
       },

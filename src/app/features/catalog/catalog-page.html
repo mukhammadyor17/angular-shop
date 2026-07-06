@@ -1,16 +1,26 @@
-@if (isLoading()) {
-  <p>Loading products...</p>
-}
-
-@if (error()) {
-  <p>{{ error() }}</p>
-}
-
 <div class="catalog-page">
-  @for (product of products(); track product.id) {
-    <app-product-card
-      [product]="product"
-      (addToCart)="onAddToCart($event)"
-    />
+  <div class="catalog-header">
+    <h1>All Products</h1>
+    <p>{{ products().length }} products found</p>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading-state">
+     <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  } @else if (error()) {
+    <div class="error-state">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ error() }}</p>
+    </div>
+  } @else {
+    <div class="products-grid">
+      @for (product of products(); track product.id) {
+       <app-product-card
+         [product]="product"
+         (addToCart)="onAddToCart($event)"
+       />
+      }
+    </div>
   }
 </div>

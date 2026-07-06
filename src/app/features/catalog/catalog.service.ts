@@ -23,4 +23,12 @@ export class CatalogService {
     return this.http.
       get<Product>(`${this.apiUrl}/products/${slug}`);
   }
+
+  getTopsales() {
+    return this.http
+      .get<{ data: Product[] }>(`${this.apiUrl}/products`, {
+        params: { sortBy: 'rating', order: 'desc', limit: 4 }
+      })
+      .pipe(map(response => response.data))
+  }
 }

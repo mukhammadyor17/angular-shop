@@ -1,14 +1,15 @@
 <article class="product-card">
-  <div class="product-card__image-wrapper">
-    <img
-      class="product-card__image"
-      [src]="product().imageUrl"
-      [alt]="product().title"
-    />
-  </div>
+  <a [routerLink]="['/product', product().slug]">
+    <div class="product-card__image-wrapper">
+      <img
+        class="product-card__image"
+        [src]="product().imageUrl"
+        [alt]="product().title"
+      />
+    </div>
 
-  <h3 class="product-card__title">{{ product().title }}</h3>
-
+    <h3 class="product-card__title">{{ product().title }}</h3>
+  </a>
   <div class="product-card__rating">
     <span class="product-card__stars">★★★★★</span>
     <span>{{ product().rating }}/5</span>
