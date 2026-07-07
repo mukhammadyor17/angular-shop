@@ -28,24 +28,18 @@
   <section class="new-arrivals">
     <div class="container">
       <div class="base-title">NEW ARRIVALS</div>
-      <div class="products-list">
-        <app-product-card [product]="product"></app-product-card>
-        <app-product-card [product]="product"></app-product-card>
-        <app-product-card [product]="product"></app-product-card>
-        <app-product-card [product]="product"></app-product-card>
-      </div>
-      <a class="catalog-link" routerLink="/catalog">View All</a>
-    </div>
-  </section>
-  <section class="top-sales">
-    <div class="container">
-      <div class="base-title">TOP SALES</div>
-      <div class="products-list">
-        <app-product-card [product]="product"></app-product-card>
-        <app-product-card [product]="product"></app-product-card>
-        <app-product-card [product]="product"></app-product-card>
-        <app-product-card [product]="product"></app-product-card>
-      </div>
+      @if (isLoading()) {
+        <div class="products-loading">Loading...</div>
+      } @else {
+        <div class="products-list">
+          @for (product of products().slice(0, 4); track product.id) {
+            <app-product-card
+              [product]="product"
+              (addToCart)="onAddToCart($event)"
+            ></app-product-card>
+          }
+        </div>
+      }
       <a class="catalog-link" routerLink="/catalog">View All</a>
     </div>
   </section>

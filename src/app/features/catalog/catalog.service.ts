@@ -14,13 +14,10 @@ export class CatalogService {
   getProducts() {
     return this.http
       .get<{ data: Product[] }>(`${this.apiUrl}/products`)
-      .pipe(
-        map(response => response.data)
-      )
+      .pipe(map((response) => response.data));
   }
 
   getProductBySlug(slug: string) {
-    return this.http.
-      get<Product>(`${this.apiUrl}/products/${slug}`);
+    return this.http.get<Product>(`${this.apiUrl}/products/${slug}`);
   }
 }

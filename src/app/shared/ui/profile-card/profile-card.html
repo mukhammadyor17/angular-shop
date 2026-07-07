@@ -1,11 +1,49 @@
-@if (user()) {
-<app-base-card class="profile-card">
-  <div class="profile-card__avatar">
-    <img [src]="user()!.photoUrl" alt="User photo" />
+<div class="pc">
+  <div class="pc__cover">
+    <div class="pc__cover-pattern"></div>
   </div>
-  <div class="profile-card__info">
-    <h2>{{ user()!.firstName }} {{ user()!.lastName }}</h2>
-    <p>{{ user()!.email }}</p>
+
+  <div class="pc__body">
+    <div class="pc__avatar-wrap">
+      <img [src]="user().photoUrl" [alt]="user().firstName" class="pc__avatar" />
+      <span class="pc__role-badge">{{ user().role }}</span>
+    </div>
+
+    <h2 class="pc__name">{{ user().firstName }} {{ user().lastName }}</h2>
+    <p class="pc__email-sub">{{ user().email }}</p>
+
+    <div class="pc__divider"></div>
+
+    <ul class="pc__info">
+      <li class="pc__info-item">
+        <span class="pc__info-icon">
+          <mat-icon>mail</mat-icon>
+        </span>
+        <div>
+          <span class="pc__info-label">Email</span>
+          <span class="pc__info-value">{{ user().email }}</span>
+        </div>
+      </li>
+
+      <li class="pc__info-item">
+        <span class="pc__info-icon">
+          <mat-icon>calendar_month</mat-icon>
+        </span>
+        <div>
+          <span class="pc__info-label">Date of birth</span>
+          <span class="pc__info-value">{{ user().dateOfBirth | date: 'd MMMM yyyy' }}</span>
+        </div>
+      </li>
+
+      <li class="pc__info-item">
+        <span class="pc__info-icon"> <mat-icon>timer</mat-icon> </span>
+        <div>
+          <span class="pc__info-label">Member since</span>
+          <span class="pc__info-value">{{ user().createdAt | date: 'd MMMM yyyy' }}</span>
+        </div>
+      </li>
+    </ul>
+
+    <button class="btn btn-primary pc__edit-btn">Edit Profile</button>
   </div>
-</app-base-card>
-}
+</div>

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -9,14 +10,17 @@ import { RouterLink } from '@angular/router';
   styleUrl: './login-page.scss',
 })
 export class LoginPage {
-  private fb = inject(FormBuilder);
+  private readonly fb = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
   submitted = false;
+  loginError = '';
 
   get email() {
     return this.form.controls.email;
@@ -28,7 +32,15 @@ export class LoginPage {
   onSubmit(): void {
     this.submitted = true;
     if (this.form.valid) {
-      console.log(this.form.value);
+      this.loginError = '';
+      const payload = {
+        email: this.form.value.email as string,
+        password: this.form.value.password as string,
+      };
+      this.authService.login(payload).subscribe({
+        next: () => this.router.navigate(['/']),
+        error: () => (this.loginError = 'Invalid email or password.'),
+      });
     }
   }
 }
