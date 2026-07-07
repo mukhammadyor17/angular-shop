@@ -60,7 +60,7 @@ export class AuthService {
   }
 
   register(payload: RegisterPayload) {
-    return this.http.post(`${this.baseUrl}/auth/register`, payload);
+    return this.http.post(`${this.baseUrl}/auth/admin`, payload);
   }
 
   getMe() {
