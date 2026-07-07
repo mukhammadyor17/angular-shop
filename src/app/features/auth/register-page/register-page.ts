@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../core/auth/auth.service';
 
 const urlPattern = /^(https?:\/\/)[\w.-]+(\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=%]+$/;
 
@@ -12,18 +13,24 @@ const urlPattern = /^(https?:\/\/)[\w.-]+(\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=
 })
 export class RegisterPage {
   private fb = inject(FormBuilder);
+  authService = inject(AuthService);
+  private router = inject(Router);
 
   form = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(2)]],
+    firstName: ['', [Validators.required, Validators.minLength(2)]],
+    lastName: ['', [Validators.required, Validators.minLength(2)]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
     photoUrl: ['', [Validators.pattern(urlPattern)]],
   });
 
   submitted = false;
 
-  get name() {
-    return this.form.controls.name;
+  get firstName() {
+    return this.form.controls.firstName;
+  }
+  get lastName() {
+    return this.form.controls.lastName;
   }
   get email() {
     return this.form.controls.email;
@@ -38,7 +45,18 @@ export class RegisterPage {
   onSubmit(): void {
     this.submitted = true;
     if (this.form.valid) {
-      console.log(this.form.value);
+      const payload = {
+        dateOfBirth: '2000-01-01',
+        email: this.form.value.email as string,
+        firstName: this.form.value.firstName as string,
+        lastName: this.form.value.lastName as string,
+        password: this.form.value.password as string,
+        photoUrl: this.form.value.photoUrl as string,
+      };
+      this.authService.register(payload).subscribe({
+        next: () => this.router.navigate(['/login']),
+        error: () => alert('Registration failed. Please try again.'),
+      });
     }
   }
 }

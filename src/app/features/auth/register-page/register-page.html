@@ -8,43 +8,93 @@
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" novalidate>
     <div class="field">
-      <input type="text" formControlName="name" placeholder="Full name" autocomplete="name"
-        [class.is-error]="(name.invalid && name.touched) || (submitted && name.invalid)" />
-      @if ((name.invalid && name.touched) || (submitted && name.invalid)) {
-      <span class="field-error">
-        @if (name.errors?.['required']) { Full name is required. }
-        @else if (name.errors?.['minlength']) { At least 2 characters. }
-      </span>
+      <input
+        type="text"
+        formControlName="firstName"
+        placeholder="First name"
+        autocomplete="name"
+        [class.is-error]="
+          (firstName.invalid && firstName.touched) || (submitted && firstName.invalid)
+        "
+      />
+      @if ((firstName.invalid && firstName.touched) || (submitted && firstName.invalid)) {
+        <span class="field-error">
+          @if (firstName.errors?.['required']) {
+            First name is required.
+          } @else if (firstName.errors?.['minlength']) {
+            At least 2 characters.
+          }
+        </span>
       }
     </div>
 
     <div class="field">
-      <input type="email" formControlName="email" placeholder="Email address" autocomplete="email"
-        [class.is-error]="(email.invalid && email.touched) || (submitted && email.invalid)" />
+      <input
+        type="text"
+        formControlName="lastName"
+        placeholder="Last name"
+        autocomplete="name"
+        [class.is-error]="(lastName.invalid && lastName.touched) || (submitted && lastName.invalid)"
+      />
+      @if ((lastName.invalid && lastName.touched) || (submitted && lastName.invalid)) {
+        <span class="field-error">
+          @if (lastName.errors?.['required']) {
+            Last name is required.
+          } @else if (lastName.errors?.['minlength']) {
+            At least 2 characters.
+          }
+        </span>
+      }
+    </div>
+
+    <div class="field">
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Email address"
+        autocomplete="email"
+        [class.is-error]="(email.invalid && email.touched) || (submitted && email.invalid)"
+      />
       @if ((email.invalid && email.touched) || (submitted && email.invalid)) {
-      <span class="field-error">
-        @if (email.errors?.['required']) { Email is required. }
-        @else if (email.errors?.['email']) { Enter a valid email address. }
-      </span>
+        <span class="field-error">
+          @if (email.errors?.['required']) {
+            Email is required.
+          } @else if (email.errors?.['email']) {
+            Enter a valid email address.
+          }
+        </span>
       }
     </div>
 
     <div class="field">
-      <input type="password" formControlName="password" placeholder="Password" autocomplete="new-password"
-        [class.is-error]="(password.invalid && password.touched) || (submitted && password.invalid)" />
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+        autocomplete="new-password"
+        [class.is-error]="(password.invalid && password.touched) || (submitted && password.invalid)"
+      />
       @if ((password.invalid && password.touched) || (submitted && password.invalid)) {
-      <span class="field-error">
-        @if (password.errors?.['required']) { Password is required. }
-        @else if (password.errors?.['minlength']) { At least 8 characters. }
-      </span>
+        <span class="field-error">
+          @if (password.errors?.['required']) {
+            Password is required.
+          } @else if (password.errors?.['minlength']) {
+            At least 8 characters.
+          }
+        </span>
       }
     </div>
 
     <div class="field">
-      <input type="url" formControlName="photoUrl" placeholder="Photo URL (optional)" autocomplete="photo"
-        [class.is-error]="photoUrl.invalid && photoUrl.touched" />
+      <input
+        type="url"
+        formControlName="photoUrl"
+        placeholder="Photo URL (optional)"
+        autocomplete="photo"
+        [class.is-error]="photoUrl.invalid && photoUrl.touched"
+      />
       @if (photoUrl.invalid && photoUrl.touched) {
-      <span class="field-error">Enter a valid URL (https://...).</span>
+        <span class="field-error">Enter a valid URL (https://...).</span>
       }
     </div>
 
