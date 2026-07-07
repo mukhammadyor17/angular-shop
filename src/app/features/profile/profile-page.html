@@ -6,8 +6,7 @@
     </h1>
 
     <app-profile-card
-      [user]="user()!"
-    />
+      [user]="user()!"/>
 
     <div class="profile-content">
 
@@ -16,13 +15,8 @@
         <button
           type="button"
           class="btn btn-secondary"
-          (click)="toggleEditMode()"
-        >
-          {{
-            isEditMode()
-              ? 'Cancel'
-              : 'Edit Profile'
-          }}
+          (click)="toggleEditMode()">
+          {{ isEditMode() ? 'Cancel' : 'Edit Profile' }}
         </button>
 
       </div>
@@ -30,31 +24,26 @@
       <form
         class="profile-form"
         [formGroup]="profileForm"
-        (ngSubmit)="saveProfile()"
-      >
+        (ngSubmit)="saveProfile()">
 
         <div class="photo-section">
 
           <img
             class="profile-photo"
-            [src]="
-              profileForm.get('photoUrl')?.value ||
-              'assets/images/avatar-placeholder.png'
-            "
+            [src]="profileForm.get('photoUrl')?.value ||
+              'assets/images/avatar-placeholder.png'"
             alt="Profile photo"
-          />
+            />
 
           <div class="form-group">
 
-            <label>
-              Photo URL
-            </label>
+            <label> Photo URL </label>
 
             <input
               type="text"
               formControlName="photoUrl"
               [readonly]="!isEditMode()"
-            />
+              />
 
           </div>
 
@@ -64,33 +53,27 @@
 
           <div class="form-group">
 
-            <label>
-              Name
-            </label>
+            <label> Name </label>
 
             <input
               type="text"
               formControlName="firstName"
               [readonly]="!isEditMode()"
-            />
+              />
 
-            <label>
-              Last Name
-            </label>
+            <label> Last Name </label>
 
             <input
               type="text"
               formControlName="lastName"
               [readonly]="!isEditMode()"
-            />
+              />
 
           </div>
 
           <div class="form-group">
 
-            <label>
-              Email
-            </label>
+            <label> Email </label>
 
             <input
               type="email"
@@ -102,9 +85,7 @@
 
           <div class="form-group">
 
-            <label>
-              Birth Date
-            </label>
+            <label> Birth Date </label>
 
             <input
               type="date"
@@ -127,21 +108,20 @@
       </form>
 
       <div class="password-content">
+
           <h2 class="password-title">Change Password</h2>
 
      <form
     class="password-form"
     [formGroup]="passwordForm"
     (ngSubmit)="savePassword()"
-  >
+    >
 
     <div class="profile-grid">
 
       <div class="form-group">
 
-        <label>
-          Current Password
-        </label>
+        <label> Current Password </label>
 
         <input
           type="password"
@@ -152,18 +132,14 @@
           passwordForm.get('currentPassword')?.hasError('required') &&
           passwordForm.get('currentPassword')?.touched
         ) {
-          <p class="error-message">
-            Current password is required.
-          </p>
+          <p class="error-message"> Current password is required. </p>
         }
 
       </div>
 
       <div class="form-group">
 
-        <label>
-          New Password
-        </label>
+        <label> New Password </label>
 
         <input
           type="password"
@@ -174,9 +150,7 @@
           passwordForm.get('newPassword')?.hasError('required') &&
           passwordForm.get('newPassword')?.touched
         ) {
-          <p class="error-message">
-            New password is required.
-          </p>
+          <p class="error-message"> New password is required. </p>
         }
 
         @if (
@@ -193,9 +167,7 @@
 
       <div class="form-group">
 
-        <label>
-          Confirm Password
-        </label>
+        <label> Confirm Password </label>
 
         <input
           type="password"
@@ -206,9 +178,7 @@
           passwordForm.get('confirmPassword')?.hasError('required') &&
           passwordForm.get('confirmPassword')?.touched
         ) {
-          <p class="error-message">
-            Please confirm your password.
-          </p>
+          <p class="error-message"> Please confirm your password. </p>
         }
 
       </div>
@@ -234,11 +204,9 @@
 
     <div class="addresses-content">
 
-  <div class="addresses-header">
+      <div class="addresses-header">
 
-    <h2 class="addresses-title">
-      Delivery Addresses
-    </h2>
+        <h2 class="addresses-title"> Delivery Addresses </h2>
 
     <button
       type="button"
@@ -253,9 +221,7 @@
 
   @if (isLoadingAddresses()) {
 
-    <div class="loading-state">
-      Loading delivery addresses...
-    </div>
+    <div class="loading-state"> Loading delivery addresses... </div>
 
   } @else {
 
@@ -278,7 +244,6 @@
               <span class="default-badge">
                 Default Address
               </span>
-
             }
 
           </div>
@@ -287,9 +252,7 @@
 
             <div class="form-group">
 
-              <label>
-                Full Name
-              </label>
+              <label> Full Name </label>
 
               <input
                 type="text"
@@ -302,19 +265,14 @@
                 address.get('fullName')?.touched
               ) {
 
-                <p class="error-message">
-                  Full name is required.
-                </p>
-
+                <p class="error-message"> Full name is required. </p>
               }
 
             </div>
 
             <div class="form-group">
 
-              <label>
-                Phone
-              </label>
+              <label> Phone </label>
 
               <input
                 type="text"
@@ -327,9 +285,7 @@
                 address.get('phone')?.touched
               ) {
 
-                <p class="error-message">
-                  Phone number is required.
-                </p>
+                <p class="error-message"> Phone number is required. </p>
 
               }
 
@@ -337,9 +293,7 @@
 
             <div class="form-group">
 
-              <label>
-                Country
-              </label>
+              <label> Country </label>
 
               <input
                 type="text"
@@ -351,9 +305,7 @@
 
             <div class="form-group">
 
-              <label>
-                City
-              </label>
+              <label> City </label>
 
               <input
                 type="text"
@@ -366,19 +318,14 @@
                 address.get('city')?.touched
               ) {
 
-                <p class="error-message">
-                  City is required.
-                </p>
-
+                <p class="error-message"> City is required. </p>
               }
 
             </div>
 
             <div class="form-group">
 
-              <label>
-                Street
-              </label>
+              <label> Street </label>
 
               <input
                 type="text"
@@ -391,19 +338,14 @@
                 address.get('street')?.touched
               ) {
 
-                <p class="error-message">
-                  Street is required.
-                </p>
-
+                <p class="error-message"> Street is required.</p>
               }
 
             </div>
 
             <div class="form-group">
 
-              <label>
-                Building
-              </label>
+              <label> Building </label>
 
               <input
                 type="text"
@@ -416,19 +358,14 @@
                 address.get('building')?.touched
               ) {
 
-                <p class="error-message">
-                  Building is required.
-                </p>
-
+                <p class="error-message"> Building is required. </p>
               }
 
             </div>
 
             <div class="form-group">
 
-              <label>
-                Apartment
-              </label>
+              <label> Apartment </label>
 
               <input
                 type="text"
@@ -440,9 +377,7 @@
 
             <div class="form-group">
 
-              <label>
-                Postal Code
-              </label>
+              <label> Postal Code </label>
 
               <input
                 type="text"
@@ -456,9 +391,7 @@
 
           <div class="form-group">
 
-            <label>
-              Comment
-            </label>
+            <label> Comment </label>
 
             <textarea
               rows="3"
@@ -476,21 +409,15 @@
               (click)="saveAddress($index)"
               [disabled]="isSavingAddress()"
             >
-              {{
-                isSavingAddress()
-                  ? 'Saving...'
-                  : 'Save'
-              }}
+              {{ isSavingAddress() ? 'Saving...' : 'Save' }}
             </button>
 
             <button
               type="button"
               class="btn btn-secondary"
               (click)="setDefaultAddress($index)"
-              [disabled]="
-                address.get('isDefault')?.value ||
-                isSavingAddress()
-              "
+              [disabled]=" address.get('isDefault')?.value ||
+                isSavingAddress() "
             >
               Set Default
             </button>
@@ -510,13 +437,13 @@
 
       }
 
-    </div>
+     </div>
 
   }
 
-</div>
+    </div>
  
-</div>
-
   </div>
+
+</div>
 </section>
