@@ -1,16 +1,15 @@
 @if (isLoading()) {
-  <p>Loading products...</p>
+  <p class="text-center pt-10">Loading products...</p>
 }
 
 @if (error()) {
-  <p>{{ error() }}</p>
+  <p class="text-center pt-10">{{ error() }}</p>
 }
 
 <div class="catalog-page">
-  @for (product of products(); track product.id) {
-    <app-product-card
-      [product]="product"
-      (addToCart)="onAddToCart($event)"
-    />
-  }
+  <div class="container catalog-grid">
+    @for (product of products(); track product.id; let i = $index) {
+      <app-product-card [product]="product" [priority]="i < 4" (addToCart)="onAddToCart($event)" />
+    }
+  </div>
 </div>

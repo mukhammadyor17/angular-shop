@@ -1,7 +1,13 @@
-<article class="product-card">
+<article class="product-card" [routerLink]="['/product', product().slug]">
   <div class="product-card__image-wrapper">
     <div class="product-card__image-inner">
-      <img class="product-card__image" [ngSrc]="product().imageUrl" [alt]="product().title" fill />
+      <img
+        class="product-card__image"
+        [ngSrc]="product().imageUrl"
+        [alt]="product().title"
+        [priority]="priority()"
+        fill
+      />
     </div>
   </div>
 
@@ -24,7 +30,11 @@
     }
   </div>
 
-  <button class="btn btn-primary product-card__button" type="button" (click)="onAddToCart()">
+  <button
+    class="btn btn-primary product-card__button"
+    type="button"
+    (click)="$event.preventDefault(); $event.stopPropagation(); onAddToCart()"
+  >
     Add to cart
   </button>
 </article>
