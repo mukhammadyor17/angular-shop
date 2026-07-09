@@ -1,1 +1,163 @@
-<p>category-page works!</p>
+<div class="cp">
+  <!-- Header -->
+  <div class="cp__header">
+    <div>
+      <h1 class="cp__title">Categories</h1>
+      <p class="cp__subtitle">{{ categories().length }} total</p>
+    </div>
+    @if (!showForm()) {
+      <button mat-raised-button color="primary" (click)="openForm()">
+        <mat-icon>add</mat-icon>
+        Add Category
+      </button>
+    }
+  </div>
+
+  <!-- Create Form -->
+  @if (showForm()) {
+    <mat-card class="cp__form-card">
+      <mat-card-header>
+        <mat-card-title>New Category</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="onCreate()" class="cp__form">
+          <div class="cp__form-row">
+            <mat-form-field appearance="outline" class="cp__field">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name" placeholder="e.g. Laptops" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="cp__field">
+              <mat-label>Slug (auto)</mat-label>
+              <input matInput formControlName="slug" placeholder="e.g. laptops" />
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" class="cp__field cp__field--full">
+            <mat-label>Description</mat-label>
+            <textarea
+              matInput
+              formControlName="description"
+              rows="1"
+              placeholder="Short description"
+            ></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="cp__field cp__field--full">
+            <mat-label>Image URL</mat-label>
+            <input matInput formControlName="imageUrl" placeholder="https://..." />
+          </mat-form-field>
+
+          <mat-slide-toggle formControlName="isActive" color="primary"> Active </mat-slide-toggle>
+
+          <div class="cp__form-actions">
+            <button mat-button type="button" (click)="cancelForm()">Cancel</button>
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="form.invalid || isSubmitting()"
+            >
+              @if (isSubmitting()) {
+                <mat-spinner diameter="18"></mat-spinner>
+              } @else {
+                Save
+              }
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  <!-- Loading -->
+  @if (isLoading()) {
+    <div class="cp__loading">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  }
+
+  <!-- Table -->
+  @if (!isLoading()) {
+    @if (categories().length === 0) {
+      <div class="cp__empty">
+        <mat-icon class="cp__empty-icon">category</mat-icon>
+        <p>No categories yet. Click "Add Category" to create one.</p>
+      </div>
+    } @else {
+      <div class="cp__table-wrap">
+        <table mat-table [dataSource]="categories()" class="cp__table">
+          <!-- Index -->
+          <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef>#</th>
+            <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
+          </ng-container>
+
+          <!-- Name -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let row">
+              <div class="cp__name-cell">
+                @if (row.imageUrl) {
+                  <img [src]="row.imageUrl" [alt]="row.name" class="cp__thumb" />
+                }
+                {{ row.name }}
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Slug -->
+          <ng-container matColumnDef="slug">
+            <th mat-header-cell *matHeaderCellDef>Slug</th>
+            <td mat-cell *matCellDef="let row">
+              <code class="cp__slug">{{ row.slug }}</code>
+            </td>
+          </ng-container>
+
+          <!-- Status -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="cp__status-chip" [class.cp__status-chip--active]="row.isActive">
+                {{ row.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Created -->
+          <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef>Created</th>
+            <td mat-cell *matCellDef="let row">{{ row.createdAt | date: 'd MMM yyyy' }}</td>
+          </ng-container>
+
+          <!-- Actions -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row">
+              @if (confirmDeleteId() === row.id) {
+                <div class="cp__confirm">
+                  <span class="cp__confirm-text">Delete?</span>
+                  <button mat-button color="warn" (click)="onDelete(row.id)">Yes</button>
+                  <button mat-button (click)="cancelDelete()">No</button>
+                </div>
+              } @else {
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="confirmDelete(row.id)"
+                  matTooltip="Delete"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              }
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    }
+  }
+</div>
