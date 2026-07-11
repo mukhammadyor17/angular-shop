@@ -11,6 +11,7 @@ import { DeliveryAddress } from '../../shared/models/delivery-address.model';
 export class ProfileService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:3031';  
+  
   getProfile(): Observable<User> {
     return this.http.get<User>(
       `${this.apiUrl}/auth/@me`

@@ -77,7 +77,8 @@ export class ProfilePage implements OnInit{
   private loadAddresses(): void {
     this.isLoadingAddresses.set(true);
 
-    this.profileService.getAddresses().subscribe({
+    this.profileService.getAddresses()
+    .subscribe({
       next: (addresses) => {
         this.addresses.set(addresses);
         this.isLoadingAddresses.set(false);
@@ -92,7 +93,8 @@ export class ProfilePage implements OnInit{
   createAddress(address: DeliveryAddress): void {
     this.isSavingAddress.set(true);
 
-    this.profileService.createAddress(address).subscribe({
+    this.profileService.createAddress(address)
+    .subscribe({
       next: () => {
         this.loadAddresses();
         this.isSavingAddress.set(false);
@@ -124,7 +126,8 @@ export class ProfilePage implements OnInit{
   deleteAddress(id: string): void {
     this.isSavingAddress.set(true);
 
-    this.profileService.deleteAddress(id).subscribe({
+    this.profileService.deleteAddress(id)
+    .subscribe({
       next: () => {
         this.loadAddresses();
         this.isSavingAddress.set(false);
@@ -139,7 +142,8 @@ export class ProfilePage implements OnInit{
   setDefaultAddress(id: string): void {
     this.isSavingAddress.set(true);
 
-    this.profileService.setDefaultAddress(id).subscribe({
+    this.profileService.setDefaultAddress(id)
+    .subscribe({
       next: () => {
         this.loadAddresses();
         this.isSavingAddress.set(false);

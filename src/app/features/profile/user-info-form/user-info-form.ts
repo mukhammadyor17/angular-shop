@@ -42,7 +42,7 @@ export class UserInfoForm {
     })
   }
 
-  /* edit mode - cancel button restore original data */
+  /* edit mode + cancel button restore original data */
   toggleEditMode(): void {
     if (this.isEditMode()) {
       const user = this.user();
