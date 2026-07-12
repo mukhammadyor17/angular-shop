@@ -96,7 +96,7 @@
 }
 
 .collaboration-text {
-  max-width: 760px;
+  max-width: 900px;
 
   line-height: 1.7;
 }
@@ -107,10 +107,16 @@
 }
 
 .rsschool-link img {
-  width: 140px;
+  width: 48px;
+  height: 48px;
+}
+
+.rsschool-link img {
+  width: 48px;
+  height: auto;
+  max-width: 100%;
 
   opacity: 0.85;
-
   transition: opacity 0.2s ease;
 }
 
