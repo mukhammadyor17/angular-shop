@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 
 import { User } from '../../shared/models/user.model';
 import { DeliveryAddress } from '../../shared/models/delivery-address.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3031';  
+  private apiUrl = environment.apiUrl;
   
   getProfile(): Observable<User> {
     return this.http.get<User>(
