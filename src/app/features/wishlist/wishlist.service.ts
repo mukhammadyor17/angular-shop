@@ -8,8 +8,8 @@ export class WishlistService {
   private storageKey = 'wishlist';
   //when app starts data from browser storage is loaded & signal get this data
   wishlist = signal<WishlistItem[]>(this.loadWishList());
-  // total amount of items/products in the wishlist
-  totalItems = computed(() => this.wishlist().length) 
+
+  totalItems = computed(() => this.wishlist().length); 
 
   constructor() {
     /* automatically synchronize state with localStorage */

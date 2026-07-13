@@ -1,9 +1,9 @@
 export interface User {
-  id: string;
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
-  photoUrl: string;
+  photoUrl: string | null;
   dateOfBirth: string;
   role: string;
   createdAt: string;
