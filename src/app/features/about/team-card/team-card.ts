@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { TeamMemberInterface } from '../team-member.interface';
 import { CommonModule } from '@angular/common';
-import { ShortTextPipe } from "../../../shared/pipes/short-text-pipe";
+import { ShortTextPipe } from '../../../shared/pipes/short-text-pipe';
 
 @Component({
   selector: 'app-team-card',
