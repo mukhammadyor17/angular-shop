@@ -8,7 +8,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class ShortTextPipe implements PipeTransform {
 
-  transform(value: string, limit: number = 100): string {
+  transform(value: string, limit: number = 200): string {
     //return original text if it's shorter than limit
     if (value.length <= limit) {
       return value;
