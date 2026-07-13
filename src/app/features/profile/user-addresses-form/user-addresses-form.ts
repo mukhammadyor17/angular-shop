@@ -27,13 +27,21 @@ export class UserAddressesForm{
 
   constructor() {
     effect(() => {
+      const serverAddresses = this.addresses();
+
+      const unsavedForms = this.addressForm.controls.filter(
+        c => !c.get('id')?.value
+      );
+
       this.addressForm.clear();
 
-      this.addresses().forEach(address => {
+      serverAddresses.forEach(address => {
         this.addressForm.push(
           this.createAddressForm(address)
         );
       });
+
+      unsavedForms.forEach(form => this.addressForm.push(form));
     });
   }
 
@@ -50,7 +58,7 @@ export class UserAddressesForm{
     city: [address?.city ?? '', Validators.required,],
     street: [address?.street ?? '', Validators.required,],
     building: [address?.building ?? '', Validators.required,],
-    appartment: [address?.appartment ?? '',],
+    apartment: [address?.apartment ?? '',],
     postalCode: [address?.postalCode ?? '',],
     comment: [address?.comment ?? '',],
     isDefault: [address?.isDefault ?? false,],
@@ -80,6 +88,7 @@ export class UserAddressesForm{
 
     if (!value.id) {
       this.create.emit(value);
+      this.addressForm.removeAt(index); 
       return;
     }
 
@@ -101,7 +110,7 @@ export class UserAddressesForm{
   /* set address as default */
   setDefaultAddress(index: number): void {
     const id = this.addressForm.at(index).get('id')?.value;
-
+    console.log("child set deafult:", id)
     if (!id) { return; }
 
     this.setDefault.emit(id);

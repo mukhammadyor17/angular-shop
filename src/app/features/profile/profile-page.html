@@ -4,10 +4,12 @@
 
     <div class="profile-content">
 
-      <app-user-info-form
-        [user]="user()!"
-        (save)="saveProfile($event)"
-      />
+    @if (user()) {
+    <app-user-info-form
+      [user]="user()!"
+      (save)="saveProfile($event)"
+    />
+    }
 
       <app-user-password-form
         (passwordSubmitted)="changePassword($event)">
