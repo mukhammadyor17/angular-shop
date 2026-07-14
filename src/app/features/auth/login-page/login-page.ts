@@ -3,7 +3,6 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
-import { User } from '../../../shared/models/user.model';
 
 @Component({
   selector: 'app-login-page',
@@ -43,7 +42,7 @@ export class LoginPage {
         .login(payload)
         .pipe(switchMap(() => this.authService.getMe()))
         .subscribe({
-          next: (user: User) => {
+          next: (user) => {
             localStorage.setItem('role', user.role);
 
             const route = user.role === 'ADMIN' ? '/admin' : '/';
