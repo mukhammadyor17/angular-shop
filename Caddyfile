@@ -3,10 +3,9 @@
   handle /api/* {
     reverse_proxy ecommerce-api-free:3000
   }
-
   # Serve static files
   handle {
-    root * /app/browser/browser
+    root * /app/browser
     try_files {path} {path}/ /index.html
     file_server
   }
