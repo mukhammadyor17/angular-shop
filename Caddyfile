@@ -1,4 +1,4 @@
-{$DOMAIN}:80 {
+:80 {
   # Proxy API requests to the backend
   handle /api/* {
     reverse_proxy ecommerce-api-free:3000
