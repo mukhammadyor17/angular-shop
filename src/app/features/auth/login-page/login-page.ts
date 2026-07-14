@@ -1,7 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { switchMap } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
+import { User } from '../../../shared/models/user.model';
 
 @Component({
   selector: 'app-login-page',
@@ -37,10 +39,18 @@ export class LoginPage {
         email: this.form.value.email as string,
         password: this.form.value.password as string,
       };
-      this.authService.login(payload).subscribe({
-        next: () => this.router.navigate(['/']),
-        error: () => (this.loginError = 'Invalid email or password.'),
-      });
+      this.authService
+        .login(payload)
+        .pipe(switchMap(() => this.authService.getMe()))
+        .subscribe({
+          next: (user: User) => {
+            localStorage.setItem('role', user.role);
+
+            const route = user.role === 'ADMIN' ? '/admin' : '/';
+            this.router.navigate([route]);
+          },
+          error: () => (this.loginError = 'Invalid email or password.'),
+        });
     }
   }
 }
