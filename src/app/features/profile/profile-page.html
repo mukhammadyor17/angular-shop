@@ -1,14 +1,28 @@
-<div class="profile-page container">
-  @if (user()) {
-    <app-profile-card [user]="user()!" />
-  } @else {
-    <div class="profile-page__skeleton">
-      <div class="skeleton-cover"></div>
-      <div class="skeleton-body">
-        <div class="skeleton-avatar"></div>
-        <div class="skeleton-line skeleton-line--name"></div>
-        <div class="skeleton-line skeleton-line--email"></div>
-      </div>
+<section class="profile page">
+  <div class="container"> 
+    <h1> My Profile </h1>
+
+    <div class="profile-content">
+
+      <app-user-info-form
+        [user]="user()!"
+        (save)="saveProfile($event)"
+      />
+
+      <app-user-password-form
+        (passwordSubmitted)="changePassword($event)">
+      </app-user-password-form>
+
+      <app-user-addresses-form
+        [addresses]="addresses()"
+        [isLoading]="isLoadingAddresses()"
+        [isSaving]="isSavingAddress()"
+        (create)="createAddress($event)"
+        (update)="updateAddress($event)"
+        (delete)="deleteAddress($event)"
+        (setDefault)="setDefaultAddress($event)">
+      </app-user-addresses-form>
+      
     </div>
-  }
-</div>
+  </div>
+</section>
