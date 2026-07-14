@@ -1,0 +1,5 @@
+{
+  "deploy": {
+    "staticDirectory": "dist/angular-shop/browser"
+  }
+}
