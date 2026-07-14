@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
 import { MainLayout } from './shared/ui/main-layout/main-layout';
 import { HomePage } from './features/home/home-page';
-import { cartGuard } from './features/cart/cart.guard';
+import { AdminLayout } from './shared/ui/admin-layout/admin-layout';
 import { authGuard } from './core/auth/auth.guard';
+import { adminGuard } from './core/auth/admin.guard';
 
 export const routes: Routes = [
   {
@@ -23,21 +24,21 @@ export const routes: Routes = [
       {
         path: 'cart',
         title: 'Cart',
-        canActivate: [cartGuard],
-        loadComponent: () =>
-          import('./features/cart/cart-page').then((m) => m.CartPage),
+        canActivate: [authGuard],
+        loadComponent: () => import('./features/cart/cart-page').then((m) => m.CartPage),
       },
       {
         path: 'product/:slug',
         title: 'Product Details',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./features/product-details/product-details-page').then(
-            (m) => m.ProductDetailsPage
+            (m) => m.ProductDetailsPage,
           ),
       },
       {
         path: 'profile',
         title: 'Profile Page',
+        canActivate: [authGuard],
         loadComponent: () => import('./features/profile/profile-page').then((m) => m.ProfilePage),
       },
       {
@@ -48,8 +49,29 @@ export const routes: Routes = [
       {
         path: 'wishlist',
         title: 'wishlist',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./features/wishlist/wishlist-page').then((m) => m.WishlistPage),
+      },
+    ],
+  },
+  {
+    path: 'admin',
+    title: 'Admin Panel',
+    component: AdminLayout,
+    canActivate: [adminGuard],
+    children: [
+      {
+        path: '',
+        title: 'Product',
+        loadComponent: () =>
+          import('./features/admin/product-page/product-page').then((m) => m.ProductPage),
+      },
+      {
+        path: 'category',
+        title: 'Category',
+        loadComponent: () =>
+          import('./features/admin/category-page/category-page').then((m) => m.CategoryPage),
       },
     ],
   },

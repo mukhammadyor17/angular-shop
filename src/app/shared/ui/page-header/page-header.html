@@ -8,18 +8,24 @@
       <a routerLink="/catalog" routerLinkActive="active">Products</a>
       <a routerLink="/about" routerLinkActive="active">About Us</a>
       <a routerLink="/contact" routerLinkActive="active">Contact</a>
-      <a routerLink="/cart" routerLinkActive="active">
-        <mat-icon
-          [matBadge]="cartCount()"
-          matBadgeColor="warn"
-          [matBadgeHidden]="cartCount() === 0"
-        >
-          shopping_cart
-        </mat-icon>
+      <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+        <mat-icon>shopping_cart</mat-icon>
+        @if (cartService.totalCount() > 0) {
+          <span class="cart-link__count">
+            {{ cartService.totalCount() }}
+          </span>
+        }
       </a>
-      <a routerLink="/profile" routerLinkActive="active">
-        <mat-icon>account_circle</mat-icon>
-      </a>
+      @if (authService.isAuthenticated()) {
+        <a routerLink="/profile" routerLinkActive="active">
+          <mat-icon>account_circle</mat-icon>
+        </a>
+        <button matButton (click)="logout()">
+          <mat-icon>logout</mat-icon>
+        </button>
+      } @else {
+        <a routerLink="/login" routerLinkActive="active"> Вход </a>
+      }
     </nav>
   </div>
 </header>

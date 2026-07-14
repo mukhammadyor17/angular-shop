@@ -1,36 +1,46 @@
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { switchMap, map } from 'rxjs';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CatalogService } from '../catalog/catalog.service';
-import { CartService } from '../cart/cart.service';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Product } from '../../shared/models/product.model';
 
 @Component({
   selector: 'app-product-details-page',
-  imports: [MatButtonModule, MatIconModule, MatProgressSpinnerModule],
+  imports: [RouterLink],
   templateUrl: './product-details-page.html',
   styleUrl: './product-details-page.scss',
 })
-
-export class ProductDetailsPage {
+export class ProductDetailsPage implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly catalogService = inject(CatalogService);
-  private readonly cartService = inject(CartService);
 
-  readonly product = toSignal(
-    this.route.paramMap.pipe(
-      map(params => params.get('slug')!),
-      switchMap(slug => this.catalogService.getProductBySlug(slug))
-    )
-  );
-  
-  addToCart(): void {
-    const product = this.product();
-    if (product) {
-      this.cartService.addItem({ product, quantity: 1})
-    }
+  product = signal<Product | null>(null);
+  activeImage = signal<string>('');
+  quantity = signal(1);
+
+  stars = computed(() => {
+    const rating = parseFloat(String(this.product()?.rating ?? 0));
+    const filled = Math.round(rating);
+    return Array.from({ length: 5 }, (_, i) => i < filled);
+  });
+
+  ngOnInit(): void {
+    const slug = this.route.snapshot.paramMap.get('slug')!;
+    this.catalogService.getProductBySlug(slug).subscribe((product) => {
+      this.product.set(product);
+      this.activeImage.set(product.images?.[0] ?? product.imageUrl);
+    });
+  }
+
+  setImage(url: string): void {
+    this.activeImage.set(url);
+  }
+
+  increment(): void {
+    const max = this.product()?.stock ?? 99;
+    if (this.quantity() < max) this.quantity.update((q) => q + 1);
+  }
+
+  decrement(): void {
+    if (this.quantity() > 1) this.quantity.update((q) => q - 1);
   }
 }

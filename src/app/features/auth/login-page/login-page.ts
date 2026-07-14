@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { switchMap } from 'rxjs';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -9,15 +11,17 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './login-page.scss',
 })
 export class LoginPage {
-  private fb = inject(FormBuilder);
+  private readonly fb = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
   submitted = false;
+  loginError = '';
 
   get email() {
     return this.form.controls.email;
@@ -29,9 +33,23 @@ export class LoginPage {
   onSubmit(): void {
     this.submitted = true;
     if (this.form.valid) {
-      localStorage.setItem('auth-token', 'logged-in');
-      this.router.navigate(['/'])
-      console.log(this.form.value);
+      this.loginError = '';
+      const payload = {
+        email: this.form.value.email as string,
+        password: this.form.value.password as string,
+      };
+      this.authService
+        .login(payload)
+        .pipe(switchMap(() => this.authService.getMe()))
+        .subscribe({
+          next: (user) => {
+            localStorage.setItem('role', user.role);
+
+            const route = user.role === 'ADMIN' ? '/admin' : '/';
+            this.router.navigate([route]);
+          },
+          error: () => (this.loginError = 'Invalid email or password.'),
+        });
     }
   }
 }

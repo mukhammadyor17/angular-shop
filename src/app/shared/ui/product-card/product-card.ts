@@ -1,17 +1,20 @@
 import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
-import { Product } from '../../models/product.model';
+import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Product } from '../../models/product.model';
+import { FormatPricePipe } from '../../pipes/format-price-pipe';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [RouterLink],
+  imports: [FormatPricePipe, NgOptimizedImage, RouterLink],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCard {
-  public product = input.required<Product>()
+  product = input.required<Product>();
+  priority = input(false);
 
   addToCart = output<Product>();
 

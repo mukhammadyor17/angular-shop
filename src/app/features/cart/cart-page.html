@@ -1,71 +1,97 @@
 <div class="cart-page">
-  <h1 class="cart-title">Your Cart</h1>
+  <div class="container">
+    <h1 class="cart-page__title">Your Cart</h1>
 
-  @if (items().length === 0) {
-    <div class="empty-cart">
-      <mat-icon>shopping_cart</mat-icon>
-      <p>Your cart is empty</p>
-      <a mat-flat-button routerLink="/catalog">Continue Shopping</a>
-    </div>
-  } @else {
-    <div class="cart-layout">
+    @if (items().length === 0) {
+      <div class="cart-empty">
+        <mat-icon class="cart-empty__icon">shopping_cart</mat-icon>
+        <p class="cart-empty__text">Your cart is empty</p>
+        <a class="btn btn-primary" routerLink="/catalog">Browse Products</a>
+      </div>
+    } @else {
+      <div class="cart-page__content">
+        <div class="cart-items">
+          @for (item of items(); track item.product.id) {
+            <div class="cart-item">
+              <div class="cart-item__image-wrapper">
+                <div class="cart-item__image-inner">
+                  <img
+                    class="cart-item__image"
+                    [ngSrc]="item.product.imageUrl"
+                    [alt]="item.product.title"
+                    fill
+                  />
+                </div>
+              </div>
 
-      <div class="cart-items">
-        @for (item of items(); track item.product.id) {
-          <div class="cart-item">
-            <img [src]="item.product.imageUrl" [alt]="item.product.title" />
-            <div class="item-info">
-              <h3>{{ item.product.title }}</h3>
-              <p class="item-price">\${{ item.product.price }}</p>
-            </div>
-            <div class="item-controls">
-              <div class="quantity-control">
-                <button mat-icon-button (click)="decrease(item.product.id)">
-                  <mat-icon>remove</mat-icon>
-                </button>
-                <span>{{ item.quantity }}</span>
-                <button mat-icon-button (click)="increase(item.product.id)">
-                  <mat-icon>add</mat-icon>
+              <div class="cart-item__info">
+                <h3 class="cart-item__title">{{ item.product.title }}</h3>
+                <p class="cart-item__price">{{ item.product.price | formatPrice }}</p>
+              </div>
+
+              <div class="cart-item__controls">
+                <div class="quantity-control">
+                  <button
+                    class="quantity-control__btn"
+                    type="button"
+                    (click)="decreaseQuantity(item.product.id)"
+                  >
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <span class="quantity-control__value">{{ item.quantity }}</span>
+                  <button
+                    class="quantity-control__btn"
+                    type="button"
+                    (click)="increaseQuantity(item.product)"
+                  >
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+
+                <p class="cart-item__subtotal">
+                  {{ item.product.price * item.quantity | formatPrice }}
+                </p>
+
+                <button
+                  class="cart-item__remove"
+                  type="button"
+                  (click)="removeItem(item.product.id, item.product.title)"
+                >
+                  <mat-icon>delete_outline</mat-icon>
                 </button>
               </div>
-              <button mat-icon-button color="warn" (click)="removeFromCart(item.product.id)">
-                <mat-icon>delete</mat-icon>
-              </button>
             </div>
-          </div>
-          <mat-divider></mat-divider>
-        }
-      </div>
+          }
+        </div>
 
-      <mat-card class="order-summary">
-        <mat-card-header>
-          <mat-card-title>Order Summary</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="summary-row">
+        <div class="cart-summary">
+          <h2 class="cart-summary__title">Order Summary</h2>
+
+          <div class="cart-summary__row">
             <span>Subtotal</span>
-            <span>{{ total() | currency }}</span>
+            <span>{{ total() | formatPrice }}</span>
           </div>
-          <div class="summary-row">
-            <span>Shipping</span>
-            <span class="free">Free</span>
+          <div class="cart-summary__row">
+            <span>Delivery</span>
+            <span class="cart-summary__free">Free</span>
           </div>
-          <mat-divider></mat-divider>
-          <div class="summary-row total">
-            <span>Total</span>
-            <span>{{ total() | currency }}</span>
-          </div>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-flat-button color="primary" class="checkout-btn">
-            Checkout
-          </button>
-          <button mat-button color="warn" (click)="clearCart()">
-            Clear Cart
-          </button>
-        </mat-card-actions>
-      </mat-card>
 
-    </div>
-  }
+          <div class="cart-summary__divider"></div>
+
+          <div class="cart-summary__row cart-summary__row--total">
+            <span>Total</span>
+            <span>{{ total() | formatPrice }}</span>
+          </div>
+
+          <button class="btn btn-primary cart-summary__checkout" type="button">
+            Go to Checkout &rarr;
+          </button>
+
+          <button class="cart-summary__clear" type="button" (click)="clearCart()">
+            Clear cart
+          </button>
+        </div>
+      </div>
+    }
+  </div>
 </div>

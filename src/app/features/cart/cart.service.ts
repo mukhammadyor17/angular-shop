@@ -16,65 +16,40 @@ export class CartService {
 
   readonly cartItems = this.items.asReadonly();
 
-  readonly total = computed(() => 
-    this.items().reduce(
-      (sum, item) => sum + Number(item.product.price) * item.quantity, 0
-    )
-  )
+  readonly total = computed(() =>
+    this.items().reduce((sum, item) => sum + item.product.price * item.quantity, 0),
+  );
+
+  readonly totalCount = computed(() => this.items().length);
 
   addItem(item: CartItem) {
-    this.items.update(items => {
-      const existing = items.find(i => i.product.id === item.product.id)
+    this.items.update((items) => {
+      const existing = items.find((i) => i.product.id === item.product.id);
 
       if (existing) {
-        return items.map(i => 
-          i.product.id === item.product.id
-            ? {...i, quantity: i.quantity + 1} : i
-        )
+        return items.map((i) =>
+          i.product.id === item.product.id ? { ...i, quantity: i.quantity + 1 } : i,
+        );
       }
-     
-      this.snackBar.open('Product added to cart', 'Close', {
-        duration: 3000,
-        horizontalPosition: 'right',
-        verticalPosition: 'bottom'
-      })
 
-      return [...items, item]
+      return [...items, item];
+    });
+  }
+
+  decreaseQuantity(id: string) {
+    this.items.update((items) => {
+      const existing = items.find((i) => i.product.id === id);
+      if (!existing) return items;
+      if (existing.quantity <= 1) return items.filter((i) => i.product.id !== id);
+      return items.map((i) => (i.product.id === id ? { ...i, quantity: i.quantity - 1 } : i));
     });
   }
 
   removeItem(id: string) {
-    this.items.update(items => 
-      items.filter(item => item.product.id !== id)
-    )
-
-    this.snackBar.open('Product removed from cart', 'Close', {
-      duration: 3000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-    })
+    this.items.update((items) => items.filter((item) => item.product.id !== id));
   }
 
   clearCart() {
-    this.items.set([])
-    this.snackBar.open('Cart empty', 'Close', {
-      duration: 3000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-    })
-  }
-
-  increaseQuantity(id: string) {
-    this.items.update(items => 
-      items.map(i => i.product.id === id ? { ...i, quantity: i.quantity + 1 } : i)
-    );
-  }
-
-  decreaseQuantity(id: string) {
-    this.items.update(items => 
-      items
-        .map(i => i.product.id === id ? { ...i, quantity: i.quantity - 1 } : i)
-        .filter(i => i.quantity > 0)
-    );
+    this.items.set([]);
   }
 }

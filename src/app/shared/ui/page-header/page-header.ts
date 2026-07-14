@@ -1,20 +1,25 @@
-import { Component, ChangeDetectionStrategy, computed, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
-import { MatBadgeModule } from '@angular/material/badge';
+import { AuthService } from '../../../core/auth/auth.service';
 import { CartService } from '../../../features/cart/cart.service';
+import { MatAnchor } from '@angular/material/button';
 
 @Component({
   selector: 'app-page-header',
-  imports: [MatIcon, RouterLink, RouterLinkActive, MatBadgeModule],
+  imports: [MatIcon, RouterLink, RouterLinkActive, MatAnchor],
   templateUrl: './page-header.html',
   styleUrl: './page-header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageHeader {
-  private readonly cartService = inject(CartService);
-  
-  readonly cartCount = computed(() => 
-    this.cartService.cartItems().reduce((sum, item) => sum + item.quantity, 0)  
-  )
+  private readonly router = inject(Router);
+
+  authService = inject(AuthService);
+  cartService = inject(CartService);
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['login']);
+  }
 }

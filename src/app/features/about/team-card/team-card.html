@@ -8,6 +8,7 @@
       [src]="member().image"
       [alt]="member().name"
     >
+    
 
     <!-- team member bio block with short-text pipe -->
     <div class="bio-block">
@@ -18,7 +19,9 @@
       </p>
 
       <button
+        type="button"
         class="btn-read-more"
+        [attr.aria-expanded]="isExpanded"
         (click)="isExpanded = !isExpanded"
       >
         {{ isExpanded ? 'show less' : 'read more' }}
@@ -40,6 +43,7 @@
       class="btn btn-primary btn-github"
       [href]="member().github"
       target="_blank"
+      rel="noopener noreferrer"
       (click)="onGithubClick()"
     >
       GitHub

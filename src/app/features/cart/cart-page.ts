@@ -1,22 +1,21 @@
 import { Component, inject } from '@angular/core';
-import { CartService } from './cart.service';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatCardModule } from '@angular/material/card';
-import { CurrencyPipe } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CartService } from './cart.service';
 
 @Component({
   selector: 'app-cart-page',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatDividerModule, MatCardModule, CurrencyPipe, RouterLink],
+  imports: [],
   templateUrl: './cart-page.html',
   styleUrl: './cart-page.scss',
 })
 
 export class CartPage {
   private readonly cartService = inject(CartService);
+  private readonly snackBar = inject(MatSnackBar);
 
   readonly items = this.cartService.cartItems;
   readonly total = this.cartService.total;
@@ -24,11 +23,21 @@ export class CartPage {
   increase(id: string) {this.cartService.increaseQuantity(id);}
   decrease(id: string) {this.cartService.decreaseQuantity(id);}
 
-  removeFromCart(id: string): void {
+  increaseQuantity(product: Product): void {
+    this.cartService.addItem({ product, quantity: 1 });
+  }
+
+  decreaseQuantity(id: string): void {
+    this.cartService.decreaseQuantity(id);
+  }
+
+  removeItem(id: string, title: string): void {
     this.cartService.removeItem(id);
+    this.snackBar.open(`"${title}" removed from cart`, 'OK', { duration: 3000 });
   }
 
   clearCart(): void {
     this.cartService.clearCart();
+    this.snackBar.open('Cart cleared', 'OK', { duration: 2500 });
   }
 }

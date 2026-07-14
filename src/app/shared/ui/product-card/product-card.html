@@ -1,25 +1,28 @@
-<article class="product-card">
-  <a [routerLink]="['/product', product().slug]">
-    <div class="product-card__image-wrapper">
+<article class="product-card" [routerLink]="['/product', product().slug]">
+  <div class="product-card__image-wrapper">
+    <div class="product-card__image-inner">
       <img
         class="product-card__image"
-        [src]="product().imageUrl"
+        [ngSrc]="product().imageUrl"
         [alt]="product().title"
+        [priority]="priority()"
+        fill
       />
     </div>
+  </div>
 
     <h3 class="product-card__title">{{ product().title }}</h3>
-  </a>
+  
   <div class="product-card__rating">
     <span class="product-card__stars">★★★★★</span>
     <span>{{ product().rating }}/5</span>
   </div>
 
-   <div class="product-card__price-row">
-    <span class="product-card__price">${{ product().price }}</span>
+  <div class="product-card__price-row">
+    <span class="product-card__price">{{ product().price | formatPrice }}</span>
 
     @if (product().oldPrice) {
-      <span class="product-card__old-price">${{ product().oldPrice }}</span>
+      <span class="product-card__old-price">{{ product().oldPrice | formatPrice }}</span>
     }
 
     @if (product().discount) {
@@ -27,7 +30,11 @@
     }
   </div>
 
-  <button class="btn btn-primary product-card__button" type="button" (click)="onAddToCart()">
+  <button
+    class="btn btn-primary product-card__button"
+    type="button"
+    (click)="$event.preventDefault(); $event.stopPropagation(); onAddToCart()"
+  >
     Add to cart
   </button>
 </article>
