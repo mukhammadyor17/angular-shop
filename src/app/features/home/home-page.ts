@@ -1,10 +1,10 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ProductCard } from '../../shared/ui/product-card/product-card';
 import { RouterLink } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Product } from '../../shared/models/product.model';
 import { CatalogService } from '../catalog/catalog.service';
 import { CartService } from '../cart/cart.service';
+import { ToastService } from '../../core/toast/toast.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 export class HomePage implements OnInit, OnDestroy {
   private readonly catalogService = inject(CatalogService);
   private readonly cartService = inject(CartService);
-  private readonly snackBar = inject(MatSnackBar);
+  private readonly toast = inject(ToastService);
 
   products = signal<Product[]>([]);
   isLoading = signal(false);
@@ -24,7 +24,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   onAddToCart(product: Product): void {
     this.cartService.addItem({ product, quantity: 1 });
-    this.snackBar.open(`"${product.title}" added to cart`, 'View Cart', { duration: 3000 });
+    this.toast.success(`"${product.title}" added to cart`);
   }
 
   ngOnInit(): void {
