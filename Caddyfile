@@ -6,6 +6,7 @@
 
   # Serve static files for everything else
   handle {
+    root * /app/browser
     try_files {path} /index.html
     file_server
   }
