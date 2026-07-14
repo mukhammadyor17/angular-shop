@@ -1,13 +1,13 @@
 :3000 {
-  # Проксирование запросов к backend
+  # Proxy API requests to the backend
   handle /api/* {
-    reverse_proxy ecommerce-api-free.railway.internal:3000
+    reverse_proxy ecommerce-api-free:3000
   }
 
-  # Angular frontend
+  # Serve static files for everything else
   handle {
-    root * /app/dist/angular-shop/browser
-    try_files {path} {path}/ /index.html
+    root * /app/browser/browser
+    try_files {path} /index.html
     file_server
   }
 }
