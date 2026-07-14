@@ -1,0 +1,7 @@
+<div class="app-toast" [class]="'app-toast--' + data.type">
+  <mat-icon class="app-toast__icon">{{ icon }}</mat-icon>
+  <span class="app-toast__message">{{ data.message }}</span>
+  <button type="button" class="app-toast__close" (click)="close()" aria-label="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -10,6 +10,7 @@ import { MatAnchor } from '@angular/material/button';
   imports: [MatIcon, RouterLink, RouterLinkActive, MatAnchor],
   templateUrl: './page-header.html',
   styleUrl: './page-header.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageHeader {
   private readonly router = inject(Router);
