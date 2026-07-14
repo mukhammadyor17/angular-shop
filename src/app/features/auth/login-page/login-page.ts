@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
 })
 export class LoginPage {
   private fb = inject(FormBuilder);
+  private readonly router = inject(Router);
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -28,6 +29,8 @@ export class LoginPage {
   onSubmit(): void {
     this.submitted = true;
     if (this.form.valid) {
+      localStorage.setItem('auth-token', 'logged-in');
+      this.router.navigate(['/'])
       console.log(this.form.value);
     }
   }

@@ -2,11 +2,13 @@ import { Routes } from '@angular/router';
 import { MainLayout } from './shared/ui/main-layout/main-layout';
 import { HomePage } from './features/home/home-page';
 import { cartGuard } from './features/cart/cart.guard';
+import { authGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: MainLayout,
+    canActivate: [authGuard],
     children: [
       {
         path: '',

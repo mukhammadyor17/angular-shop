@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { RouterLink } from '@angular/router';
 
@@ -8,9 +8,10 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCard {
-  product = input.required<Product>()
+  public product = input.required<Product>()
 
   addToCart = output<Product>();
 
