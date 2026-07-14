@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "dev": "concurrently \"ng serve\" \"node server/server.js\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -25,10 +26,12 @@
   "private": true,
   "packageManager": "npm@10.9.7",
   "dependencies": {
+    "@angular/cdk": "^21.2.10",
     "@angular/common": "^21.1.0",
     "@angular/compiler": "^21.1.0",
     "@angular/core": "^21.1.0",
     "@angular/forms": "^21.1.0",
+    "@angular/material": "^21.2.11",
     "@angular/platform-browser": "^21.1.0",
     "@angular/router": "^21.1.0",
     "rxjs": "~7.8.0",
@@ -42,6 +45,7 @@
     "@commitlint/config-conventional": "^21.0.0",
     "@eslint/js": "^10.0.1",
     "angular-eslint": "21.3.1",
+    "concurrently": "^9.2.1",
     "eslint": "^10.0.3",
     "husky": "^9.1.7",
     "jsdom": "^27.1.0",

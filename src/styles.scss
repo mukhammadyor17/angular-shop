@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@use './styles/tokens';
+@use './styles/reset';
+@use './styles/typography';
+@use './styles/layout';
+@use './styles/buttons';
+
+@include mat.theme(
+  (
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  )
+);
+
+.text-center {
+  text-align: center;
+}
+
+.pt-10 {
+  padding-top: 40px;
+}

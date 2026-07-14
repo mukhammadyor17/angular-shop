@@ -1,0 +1,110 @@
+<div class="login-box">
+  <a class="brand" routerLink="/">SHOP.CO</a>
+
+  <div class="heading">
+    <h1>Create Account</h1>
+    <p>Join us and start shopping.</p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" novalidate>
+    <div class="field">
+      <input
+        type="text"
+        formControlName="firstName"
+        placeholder="First name"
+        autocomplete="name"
+        [class.is-error]="
+          (firstName.invalid && firstName.touched) || (submitted && firstName.invalid)
+        "
+      />
+      @if ((firstName.invalid && firstName.touched) || (submitted && firstName.invalid)) {
+        <span class="field-error">
+          @if (firstName.errors?.['required']) {
+            First name is required.
+          } @else if (firstName.errors?.['minlength']) {
+            At least 2 characters.
+          }
+        </span>
+      }
+    </div>
+
+    <div class="field">
+      <input
+        type="text"
+        formControlName="lastName"
+        placeholder="Last name"
+        autocomplete="name"
+        [class.is-error]="(lastName.invalid && lastName.touched) || (submitted && lastName.invalid)"
+      />
+      @if ((lastName.invalid && lastName.touched) || (submitted && lastName.invalid)) {
+        <span class="field-error">
+          @if (lastName.errors?.['required']) {
+            Last name is required.
+          } @else if (lastName.errors?.['minlength']) {
+            At least 2 characters.
+          }
+        </span>
+      }
+    </div>
+
+    <div class="field">
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Email address"
+        autocomplete="email"
+        [class.is-error]="(email.invalid && email.touched) || (submitted && email.invalid)"
+      />
+      @if ((email.invalid && email.touched) || (submitted && email.invalid)) {
+        <span class="field-error">
+          @if (email.errors?.['required']) {
+            Email is required.
+          } @else if (email.errors?.['email']) {
+            Enter a valid email address.
+          }
+        </span>
+      }
+    </div>
+
+    <div class="field">
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+        autocomplete="new-password"
+        [class.is-error]="(password.invalid && password.touched) || (submitted && password.invalid)"
+      />
+      @if ((password.invalid && password.touched) || (submitted && password.invalid)) {
+        <span class="field-error">
+          @if (password.errors?.['required']) {
+            Password is required.
+          } @else if (password.errors?.['minlength']) {
+            At least 8 characters.
+          }
+        </span>
+      }
+    </div>
+
+    <div class="field">
+      <input
+        type="url"
+        formControlName="photoUrl"
+        placeholder="Photo URL (optional)"
+        autocomplete="photo"
+        [class.is-error]="photoUrl.invalid && photoUrl.touched"
+      />
+      @if (photoUrl.invalid && photoUrl.touched) {
+        <span class="field-error">Enter a valid URL (https://...).</span>
+      }
+    </div>
+
+    <button type="submit" class="btn btn-primary submit-btn">Create Account</button>
+  </form>
+
+  <div class="divider"><span>OR</span></div>
+
+  <p class="register-prompt">
+    Already have an account?
+    <a routerLink="/login" class="register-link">Sign In</a>
+  </p>
+</div>
