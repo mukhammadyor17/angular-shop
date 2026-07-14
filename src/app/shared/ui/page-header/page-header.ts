@@ -3,10 +3,11 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { AuthService } from '../../../core/auth/auth.service';
 import { CartService } from '../../../features/cart/cart.service';
+import { MatAnchor } from '@angular/material/button';
 
 @Component({
   selector: 'app-page-header',
-  imports: [MatIcon, RouterLink, RouterLinkActive],
+  imports: [MatIcon, RouterLink, RouterLinkActive, MatAnchor],
   templateUrl: './page-header.html',
   styleUrl: './page-header.scss',
 })
