@@ -1,9 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProductCard } from '../../shared/ui/product-card/product-card';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Product } from '../../shared/models/product.model';
 import { CartService } from '../cart/cart.service';
 import { CatalogService } from './catalog.service';
+import { ToastService } from '../../core/toast/toast.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class CatalogPage implements OnInit {
   private readonly catalogService = inject(CatalogService);
   private readonly cartService = inject(CartService);
-  private readonly snackBar = inject(MatSnackBar);
+  private readonly toast = inject(ToastService);
 
   readonly products = signal<Product[]>([]);
   readonly isLoading = signal(false);
@@ -41,6 +41,6 @@ export class CatalogPage implements OnInit {
 
   onAddToCart(product: Product): void {
     this.cartService.addItem({ product, quantity: 1 });
-    this.snackBar.open(`"${product.title}" added to cart`, 'View Cart', { duration: 3000 });
+    this.toast.success(`"${product.title}" added to cart`);
   }
 }

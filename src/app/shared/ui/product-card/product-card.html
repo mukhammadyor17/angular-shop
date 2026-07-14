@@ -29,6 +29,22 @@
       <span class="product-card__discount">{{ product().discount }}%</span>
     }
   </div>
+  
+  <button
+    type="button"
+    class="product-card__wishlist"
+    [class.product-card__wishlist--active]="isInWishlist()"
+    (click)="onToggleWishlist()"
+    [attr.aria-label]="
+      isInWishlist()
+        ? 'Remove product from wishlist'
+        : 'Add product to wishlist'
+    "
+  >
+    <mat-icon>
+      {{ isInWishlist() ? 'favorite' : 'favorite_border' }}
+    </mat-icon>
+  </button>
 
   <button
     class="btn btn-primary product-card__button"

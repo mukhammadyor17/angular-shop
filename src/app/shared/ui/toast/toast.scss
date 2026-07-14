@@ -1,0 +1,46 @@
+.app-toast {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-white);
+}
+
+.app-toast__icon {
+  flex-shrink: 0;
+}
+
+.app-toast__message {
+  flex: 1;
+  font-size: 14px;
+}
+
+.app-toast__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.app-toast--success .app-toast__icon {
+  color: var(--color-success);
+}
+
+.app-toast--error .app-toast__icon {
+  color: var(--color-danger);
+}
+
+.app-toast--info .app-toast__icon {
+  color: var(--color-info);
+}
+
+.app-toast--warning .app-toast__icon {
+  color: var(--color-warning);
+}

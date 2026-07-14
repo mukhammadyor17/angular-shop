@@ -1,6 +1,5 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Product } from '../../shared/models/product.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface CartItem {
   product: Product;
@@ -11,7 +10,6 @@ export interface CartItem {
   providedIn: 'root',
 })
 export class CartService {
-  private readonly snackBar = inject(MatSnackBar)
   private readonly items = signal<CartItem[]>([]);
 
   readonly cartItems = this.items.asReadonly();
