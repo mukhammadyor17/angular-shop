@@ -20,9 +20,9 @@
         <a routerLink="/profile" routerLinkActive="active">
           <mat-icon>account_circle</mat-icon>
         </a>
-        <a routerLink="/login" routerLinkActive="active">
+        <button matButton (click)="logout()">
           <mat-icon>logout</mat-icon>
-        </a>
+        </button>
       } @else {
         <a routerLink="/login" routerLinkActive="active"> Вход </a>
       }
