@@ -1,0 +1,12 @@
+{$DOMAIN}:80 {
+  # Proxy API requests to the backend
+  handle /api/* {
+    reverse_proxy ecommerce-api-free:3000
+  }
+
+  # Serve static files for everything else
+  handle {
+    try_files {path} /index.html
+    file_server
+  }
+}
