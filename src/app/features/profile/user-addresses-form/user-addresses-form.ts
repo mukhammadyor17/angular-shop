@@ -27,21 +27,13 @@ export class UserAddressesForm{
 
   constructor() {
     effect(() => {
-      const serverAddresses = this.addresses();
-
-      const unsavedForms = this.addressForm.controls.filter(
-        c => !c.get('id')?.value
-      );
-
       this.addressForm.clear();
 
-      serverAddresses.forEach(address => {
+      this.addresses().forEach(address => {
         this.addressForm.push(
           this.createAddressForm(address)
         );
       });
-
-      unsavedForms.forEach(form => this.addressForm.push(form));
     });
   }
 
@@ -88,7 +80,6 @@ export class UserAddressesForm{
 
     if (!value.id) {
       this.create.emit(value);
-      this.addressForm.removeAt(index); 
       return;
     }
 
@@ -110,7 +101,7 @@ export class UserAddressesForm{
   /* set address as default */
   setDefaultAddress(index: number): void {
     const id = this.addressForm.at(index).get('id')?.value;
-    console.log("child set deafult:", id)
+
     if (!id) { return; }
 
     this.setDefault.emit(id);

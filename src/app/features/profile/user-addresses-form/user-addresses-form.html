@@ -203,8 +203,7 @@
               type="button"
               class="btn btn-secondary"
               (click)="setDefaultAddress($index)"
-              [disabled]=" address.get('isDefault')?.value ||
-                isSaving() "
+              [disabled]=" address.get('isDefault')?.value || isSaving() "
             >
               Set Default
             </button>
