@@ -1,5 +1,4 @@
 {
-  "deploy": {
-    "staticDirectory": "dist/angular-shop/browser"
-  }
+  "buildCommand": "",
+  "startCommand": ""
 }
