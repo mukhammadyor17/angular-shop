@@ -1,6 +1,6 @@
 :3000 {
   handle /api/* {
-    reverse_proxy ecommerce-api-free.railway.internal:3000
+    reverse_proxy https://ecommerce-api-free-production.up.railway.app
   }
   handle {
     root * /app/browser
