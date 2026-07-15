@@ -7,6 +7,6 @@ RUN npm run build
 
 FROM caddy:latest
 COPY --from=builder /app/browser /app/browser
-COPY Caddyfile /etc/caddy/Caddyfile
+COPY Caddyfile /app/Caddyfile
 EXPOSE 3000
-CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
+CMD ["caddy", "run", "--config", "/app/Caddyfile", "--adapter", "caddyfile"]
