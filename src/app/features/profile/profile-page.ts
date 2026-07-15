@@ -7,7 +7,6 @@ import { DeliveryAddress } from '../../shared/models/delivery-address.model';
 import { UserInfoForm } from './user-info-form/user-info-form';
 import { UserPasswordForm } from './user-password-form/user-password-form';
 import { UserAddressesForm } from './user-addresses-form/user-addresses-form';
-import { Subject, switchMap, tap } from 'rxjs';
 
 
 @Component({
@@ -30,27 +29,6 @@ export class ProfilePage implements OnInit{
   isLoadingAddresses = signal(false);
   isSavingAddress = signal(false);
 
-  private reload$ = new Subject<void>();
-
-  constructor() {
-    this.reload$.pipe(
-      tap(() => this.isLoadingAddresses.set(true)),
-      switchMap(() => this.profileService.getAddresses())
-    ).subscribe({
-      next: (addresses) => {
-        console.log('new address from server', addresses);
-        this.addresses.set(addresses);
-        this.isLoadingAddresses.set(false);
-        this.isSavingAddress.set(false);
-      },
-      error: (err) => {
-        console.error('Failed to load addresses', err);
-        this.isLoadingAddresses.set(false);
-        this.isSavingAddress.set(false);
-      },
-    });
-  }
-  
   /* User profile */
   private loadProfile() {
     this.profileService
@@ -79,7 +57,7 @@ export class ProfilePage implements OnInit{
   confirmPassword: string;}): void {
 
   this.profileService
-    .changePassword(data)
+    .changePassword({ newPassword: data.newPassword })
     .subscribe({
       next: () => {
         console.log('Password updated successfully');
@@ -97,7 +75,19 @@ export class ProfilePage implements OnInit{
   }
 
   private loadAddresses(): void {
-    this.reload$.next();
+    this.isLoadingAddresses.set(true);
+
+    this.profileService.getAddresses()
+    .subscribe({
+      next: (addresses) => {
+        this.addresses.set(addresses);
+        this.isLoadingAddresses.set(false);
+      },
+      error: (err) => {
+        console.error('Failed to load addresses', err);
+        this.isLoadingAddresses.set(false);
+      },
+    });
   }
 
   createAddress(address: DeliveryAddress): void {
@@ -124,6 +114,7 @@ export class ProfilePage implements OnInit{
       .subscribe({
         next: () => {
           this.loadAddresses();
+          this.isSavingAddress.set(false);
         },
         error: (err) => {
           console.error('Failed to update address', err);
@@ -148,18 +139,19 @@ export class ProfilePage implements OnInit{
     });
   }
 
-setDefaultAddress(id: string): void {
-  this.isSavingAddress.set(true);
+  setDefaultAddress(id: string): void {
+    this.isSavingAddress.set(true);
 
-  this.profileService.setDefaultAddress(id)
+    this.profileService.setDefaultAddress(id)
     .subscribe({
       next: () => {
         this.loadAddresses();
+        this.isSavingAddress.set(false);
       },
       error: (err) => {
         console.error('Failed to set default address', err);
         this.isSavingAddress.set(false);
-      }
+      },
     });
-}
+  }
 }
