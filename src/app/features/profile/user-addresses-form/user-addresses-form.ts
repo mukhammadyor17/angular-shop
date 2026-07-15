@@ -50,7 +50,7 @@ export class UserAddressesForm{
     city: [address?.city ?? '', Validators.required,],
     street: [address?.street ?? '', Validators.required,],
     building: [address?.building ?? '', Validators.required,],
-    appartment: [address?.appartment ?? '',],
+    apartment: [address?.apartment ?? '',],
     postalCode: [address?.postalCode ?? '',],
     comment: [address?.comment ?? '',],
     isDefault: [address?.isDefault ?? false,],

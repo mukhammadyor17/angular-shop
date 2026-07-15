@@ -6,7 +6,7 @@ export interface DeliveryAddress {
     city: string;
     street: string;
     building: string;
-    appartment: string | null;
+    apartment: string | null;
     postalCode: string | null;
     comment: string | null;
     isDefault: boolean; 
