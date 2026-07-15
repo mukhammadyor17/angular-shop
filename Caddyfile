@@ -1,7 +1,5 @@
 :3000 {
-  @api path /api/*
-  handle @api {
-    rewrite * {path}
+  handle_path /api/* {
     reverse_proxy https://ecommerce-api-free-production.up.railway.app
   }
   handle {
