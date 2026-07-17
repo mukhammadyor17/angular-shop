@@ -57,7 +57,7 @@ export class ProfilePage implements OnInit{
   confirmPassword: string;}): void {
 
   this.profileService
-    .changePassword({ newPassword: data.newPassword })
+    .changePassword(data)
     .subscribe({
       next: () => {
         console.log('Password updated successfully');

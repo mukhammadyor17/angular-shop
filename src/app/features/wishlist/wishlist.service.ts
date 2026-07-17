@@ -6,7 +6,7 @@ import { WishlistItem } from './wishlist-item.interface';
 })
 export class WishlistService {
   private storageKey = 'wishlist';
-  //when app starts data from browser storage is loaded & signal get this data
+
   wishlist = signal<WishlistItem[]>(this.loadWishList());
 
   totalItems = computed(() => this.wishlist().length); 
