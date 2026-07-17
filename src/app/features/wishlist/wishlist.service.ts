@@ -1,7 +1,8 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { WishlistItem } from './wishlist-item.interface';
-import { AuthService } from '../../core/auth/auth.service';
 import { Router } from '@angular/router';
+
+import { AuthService } from '../../core/auth/auth.service';
+import { Product } from '../../shared/models/product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class WishlistService {
   private auth = inject(AuthService);
   private router = inject(Router);
 
-  wishlist = signal<WishlistItem[]>(this.loadWishList());
+  wishlist = signal<Product[]>(this.loadWishList());
 
   totalItems = computed(() => this.wishlist().length);
 
@@ -21,7 +22,7 @@ export class WishlistService {
     });
   }
 
-  addToWishList(product: WishlistItem): boolean {
+  addToWishList(product: Product): boolean {
     if (!this.auth.isAuthenticated()) {
       this.router.navigate(['/login'], { queryParams: { redirect: this.router.url } });
       return false;
@@ -35,9 +36,8 @@ export class WishlistService {
   }
 
   removeFromWishLIst(productId: string): void {
-   this.wishlist.update((items) => 
-    items.filter((item) => item.id !== productId));
-  };
+      this.wishlist.update((items) => items.filter((item) => item.id !== productId));
+  }
 
   isInWishList(productId: string): boolean {
     return this.wishlist().some((item) => item.id === productId);
@@ -47,7 +47,7 @@ export class WishlistService {
     this.wishlist.set([]);
   }
 
-  private loadWishList(): WishlistItem[] {
+  private loadWishList(): Product[] {
     const data = localStorage.getItem(this.storageKey);
     return data ? JSON.parse(data) : [];
   }
