@@ -34,7 +34,7 @@
     type="button"
     class="product-card__wishlist"
     [class.product-card__wishlist--active]="isInWishlist()"
-    (click)="onToggleWishlist()"
+    (click)="$event.preventDefault(); $event.stopPropagation(); onToggleWishlist()"
     [attr.aria-label]="
       isInWishlist()
         ? 'Remove product from wishlist'
