@@ -35,8 +35,13 @@ export class ProfileService {
   }
 
   /* ------PASSWORD------ */
-  changePassword (data: { newPassword: string }) {
-    return this.http.post(`${this.apiUrl}/auth/change-my-password`, { password: data.newPassword, })
+  changePassword (data: { 
+    currentPassword: string;
+    newPassword: string;
+    confirmPassword: string; 
+  
+  }) {
+    return this.http.post(`${this.apiUrl}/auth/change-my-password`, data)
   }
 
   /* ------ADDRESS MANAGEMENT------ */
