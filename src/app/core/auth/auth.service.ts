@@ -60,7 +60,7 @@ export class AuthService {
   }
 
   register(payload: RegisterPayload) {
-    return this.http.post(`${this.baseUrl}/auth/admin`, payload);
+    return this.http.post(`${this.baseUrl}/auth/register`, payload);
   }
 
   getMe() {
@@ -68,7 +68,7 @@ export class AuthService {
   }
 
   updateMe(payload: Partial<RegisterPayload>) {
-    return this.http.post(`${this.baseUrl}/auth/@me`, payload);
+    return this.http.patch(`${this.baseUrl}/auth/@me`, payload);
   }
 
   logout() {

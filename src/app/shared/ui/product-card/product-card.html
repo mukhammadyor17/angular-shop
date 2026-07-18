@@ -11,8 +11,8 @@
     </div>
   </div>
 
-  <h3 class="product-card__title">{{ product().title }}</h3>
-
+    <h3 class="product-card__title">{{ product().title }}</h3>
+  
   <div class="product-card__rating">
     <span class="product-card__stars">★★★★★</span>
     <span>{{ product().rating }}/5</span>
@@ -29,6 +29,22 @@
       <span class="product-card__discount">{{ product().discount }}%</span>
     }
   </div>
+  
+  <button
+    type="button"
+    class="product-card__wishlist"
+    [class.product-card__wishlist--active]="isInWishlist()"
+    (click)="$event.preventDefault(); $event.stopPropagation(); onToggleWishlist()"
+    [attr.aria-label]="
+      isInWishlist()
+        ? 'Remove product from wishlist'
+        : 'Add product to wishlist'
+    "
+  >
+    <mat-icon>
+      {{ isInWishlist() ? 'favorite' : 'favorite_border' }}
+    </mat-icon>
+  </button>
 
   <button
     class="btn btn-primary product-card__button"

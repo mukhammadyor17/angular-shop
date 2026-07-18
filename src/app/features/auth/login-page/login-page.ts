@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
+import { ToastService } from '../../../core/toast/toast.service';
 
 @Component({
   selector: 'app-login-page',
@@ -14,6 +15,7 @@ export class LoginPage {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly toast = inject(ToastService);
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -48,7 +50,10 @@ export class LoginPage {
             const route = user.role === 'ADMIN' ? '/admin' : '/';
             this.router.navigate([route]);
           },
-          error: () => (this.loginError = 'Invalid email or password.'),
+          error: () => {
+            this.loginError = 'Invalid email or password.';
+            this.toast.warning(this.loginError);
+          },
         });
     }
   }

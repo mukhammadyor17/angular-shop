@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
+import { ToastService } from '../../../core/toast/toast.service';
 
 const urlPattern = /^(https?:\/\/)[\w.-]+(\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=%]+$/;
 
@@ -15,6 +16,7 @@ export class RegisterPage {
   private fb = inject(FormBuilder);
   authService = inject(AuthService);
   private router = inject(Router);
+  private toast = inject(ToastService);
 
   form = this.fb.group({
     firstName: ['', [Validators.required, Validators.minLength(2)]],
@@ -55,7 +57,7 @@ export class RegisterPage {
       };
       this.authService.register(payload).subscribe({
         next: () => this.router.navigate(['/login']),
-        error: () => alert('Registration failed. Please try again.'),
+        error: () => this.toast.error('Registration failed. Please try again.'),
       });
     }
   }
