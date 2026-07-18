@@ -21,6 +21,14 @@ export class CatalogService {
     return this.http.get<Product>(`${this.apiUrl}/products/${slug}`);
   }
 
+  createProduct(payload: Partial<Product> & { categoryId: string }) {
+    return this.http.post<Product>(`${this.apiUrl}/products`, payload);
+  }
+
+  deleteProduct(id: string) {
+    return this.http.delete(`${this.apiUrl}/products/${id}`);
+  }
+
   getTopsales() {
     return this.http
       .get<{ data: Product[] }>(`${this.apiUrl}/products`, {
