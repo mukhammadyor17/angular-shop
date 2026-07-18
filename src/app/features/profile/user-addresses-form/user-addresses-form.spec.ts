@@ -32,11 +32,11 @@ describe('UserAddressesForm', () => {
 
     component.addressesForm.at(0).patchValue({
       fullName: 'John Doe',
-      phone: '123456789',
-      country: 'USA',
-      city: 'New York',
-      street: 'Main',
-      building: '10',
+      phone: '995333333333',
+      country: 'Georgia',
+      city: 'Mestia',
+      street: 'Vazha Pshavela',
+      building: '3',
     });
 
     component.saveAddress(0);
