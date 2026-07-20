@@ -18,7 +18,7 @@ describe('UserInfoForm', () => {
       id: '1',
       firstName: 'John',
       lastName: 'Doe',
-      email: 'john@test.com',
+      email: 'john@example.com',
       dateOfBirth: '2000-01-01',
       photoUrl: '',
       role: 'USER',
