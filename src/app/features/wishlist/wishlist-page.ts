@@ -6,6 +6,10 @@ import { CartService } from '../cart/cart.service';
 import { ToastService } from '../../core/toast/toast.service';
 import { Product } from '../../shared/models/product.model';
 
+/** displays user's saved products and lets them move items to the cart.
+ * all wishlist state lives in WishlistService; 
+ * this component only renders it and forwards user actions.
+ */
 
 @Component({
   selector: 'app-wishlist-page',
