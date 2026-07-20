@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
 import { Product } from '../../shared/models/product.model';
 
+/** state place in a signal and is persisted to localStorage, 
+ * so it survives page refreshes without a backend
+ */
+
 @Injectable({
   providedIn: 'root',
 })
