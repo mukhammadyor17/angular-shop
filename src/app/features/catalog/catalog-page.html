@@ -1,0 +1,15 @@
+@if (isLoading()) {
+  <p class="text-center pt-10">Loading products...</p>
+}
+
+@if (error()) {
+  <p class="text-center pt-10">{{ error() }}</p>
+}
+
+<div class="catalog-page">
+  <div class="container catalog-grid">
+    @for (product of products(); track product.id; let i = $index) {
+      <app-product-card [product]="product" [priority]="i < 4" (addToCart)="onAddToCart($event)" />
+    }
+  </div>
+</div>

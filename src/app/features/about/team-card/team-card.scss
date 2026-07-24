@@ -1,0 +1,120 @@
+.card {
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+
+  background: var(--color-white);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* top section */
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+
+  padding: var(--space-6);
+}
+
+/* round avatar */
+.card-image {
+  flex-shrink: 0;
+
+  width: 140px;
+  height: 140px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+/* bio on the right side */
+.bio {
+  line-height: 1.7;
+}
+
+.bio-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* bottom content */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  padding:
+    0 var(--space-6)
+    var(--space-6);
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.role {
+  font-weight: 600;
+}
+
+.btn-github {
+  width: fit-content;
+}
+
+.btn-read-more {
+  width: fit-content;
+
+  padding: 0;
+
+  border: none;
+  border-bottom: 1px solid transparent;
+
+  background: transparent;
+
+  color: var(--color-black);
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition:
+    opacity 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.btn-read-more:hover {
+  opacity: 0.7;
+
+  border-color: var(--color-black);
+}
+
+/* mobile version */
+@media (max-width: 768px) {
+  .card-top {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .bio {
+    text-align: center;
+  }
+
+  .card-content {
+    align-items: center;
+    text-align: center;
+  }
+}

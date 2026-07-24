@@ -1,0 +1,141 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
+  background: var(--color-white);
+  padding: var(--space-8);
+  box-sizing: border-box;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--color-black);
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-bottom: var(--space-10);
+  display: inline-block;
+}
+
+.heading {
+  margin-bottom: var(--space-8);
+
+  h1 {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--color-black);
+    text-transform: uppercase;
+    margin-bottom: var(--space-2);
+  }
+
+  p {
+    color: var(--color-text-secondary);
+    font-size: 14px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+
+  input {
+    width: 100%;
+    padding: 14px 20px;
+    background: var(--color-bg-soft);
+    border: 1.5px solid transparent;
+    border-radius: var(--radius-pill);
+    font-size: 15px;
+    font-family: var(--font-main);
+    color: var(--color-black);
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease;
+
+    &::placeholder {
+      color: var(--color-text-muted);
+    }
+
+    &:focus {
+      border-color: var(--color-black);
+    }
+
+    &.is-error {
+      border-color: var(--color-danger);
+    }
+  }
+}
+
+.field-error {
+  font-size: 12px;
+  color: var(--color-danger);
+  padding: 0 var(--space-1);
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: var(--space-2);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: var(--space-6) 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-border);
+  }
+
+  span {
+    position: relative;
+    padding: 0 var(--space-4);
+    background: var(--color-white);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+}
+
+.register-prompt {
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.register-link {
+  color: var(--color-black);
+  font-weight: 700;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

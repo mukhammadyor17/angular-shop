@@ -1,0 +1,56 @@
+<article class="product-card" [routerLink]="['/product', product().slug]">
+  <div class="product-card__image-wrapper">
+    <div class="product-card__image-inner">
+      <img
+        class="product-card__image"
+        [ngSrc]="product().imageUrl"
+        [alt]="product().title"
+        [priority]="priority()"
+        fill
+      />
+    </div>
+  </div>
+
+    <h3 class="product-card__title">{{ product().title }}</h3>
+  
+  <div class="product-card__rating">
+    <span class="product-card__stars">★★★★★</span>
+    <span>{{ product().rating }}/5</span>
+  </div>
+
+  <div class="product-card__price-row">
+    <span class="product-card__price">{{ product().price | formatPrice }}</span>
+
+    @if (product().oldPrice) {
+      <span class="product-card__old-price">{{ product().oldPrice | formatPrice }}</span>
+    }
+
+    @if (product().discount) {
+      <span class="product-card__discount">{{ product().discount }}%</span>
+    }
+  </div>
+  
+  <button
+    type="button"
+    class="product-card__wishlist"
+    [class.product-card__wishlist--active]="isInWishlist()"
+    (click)="$event.preventDefault(); $event.stopPropagation(); onToggleWishlist()"
+    [attr.aria-label]="
+      isInWishlist()
+        ? 'Remove product from wishlist'
+        : 'Add product to wishlist'
+    "
+  >
+    <mat-icon>
+      {{ isInWishlist() ? 'favorite' : 'favorite_border' }}
+    </mat-icon>
+  </button>
+
+  <button
+    class="btn btn-primary product-card__button"
+    type="button"
+    (click)="$event.preventDefault(); $event.stopPropagation(); onAddToCart()"
+  >
+    Add to cart
+  </button>
+</article>

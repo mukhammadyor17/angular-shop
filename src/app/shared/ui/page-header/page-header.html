@@ -1,0 +1,31 @@
+<header class="page-header">
+  <div class="container">
+    <a class="logo" routerLink="/"> SHOP.CO </a>
+    <nav class="navigation">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        Home
+      </a>
+      <a routerLink="/catalog" routerLinkActive="active">Products</a>
+      <a routerLink="/about" routerLinkActive="active">About Us</a>
+      <a routerLink="/wishlist" routerLinkActive="active" class="tab">Wishlist</a>
+      <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+        <mat-icon>shopping_cart</mat-icon>
+        @if (cartService.totalCount() > 0) {
+          <span class="cart-link__count">
+            {{ cartService.totalCount() }}
+          </span>
+        }
+      </a>
+      @if (authService.isAuthenticated()) {
+        <a routerLink="/profile" routerLinkActive="active">
+          <mat-icon>account_circle</mat-icon>
+        </a>
+        <button matButton (click)="logout()">
+          <mat-icon>logout</mat-icon>
+        </button>
+      } @else {
+        <a routerLink="/login" routerLinkActive="active"> Вход </a>
+      }
+    </nav>
+  </div>
+</header>

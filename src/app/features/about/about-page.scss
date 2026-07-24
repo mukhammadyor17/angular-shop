@@ -1,0 +1,133 @@
+.about {
+  display: flex;
+  flex-direction: column;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  margin-bottom: var(--space-10);
+}
+
+.team-text {
+  max-width: 720px;
+
+  line-height: 1.7;
+}
+
+.team-section {
+  margin-bottom: var(--space-16);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: var(--space-4);
+
+  margin-bottom: var(--space-8);
+}
+
+.slider-controls {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.btn-control {
+  width: 52px;
+  height: 52px;
+
+  padding: 0;
+
+  border-radius: 50%;
+}
+
+.slider-window {
+  overflow: hidden;
+}
+
+.slider-track {
+  display: flex;
+
+  transition: transform 0.45s ease;
+}
+
+.slide {
+  min-width: 100%;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+
+  margin-top: var(--space-6);
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: var(--color-border);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.dot.active {
+  background: var(--color-black);
+
+  transform: scale(1.2);
+}
+
+.collaboration {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  margin-bottom: var(--space-16);
+}
+
+.collaboration-text {
+  max-width: 900px;
+
+  line-height: 1.7;
+}
+
+.rsschool {
+  display: flex;
+  justify-content: center;
+}
+
+.rsschool-link img {
+  width: 48px;
+  height: 48px;
+}
+
+.rsschool-link img {
+  width: 48px;
+  height: auto;
+  max-width: 100%;
+
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.rsschool-link:hover img {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+}

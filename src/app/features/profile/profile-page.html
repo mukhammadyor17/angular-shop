@@ -1,0 +1,30 @@
+<section class="profile page">
+  <div class="container"> 
+    <h1> My Profile </h1>
+
+    <div class="profile-content">
+
+    @if (user()) {
+    <app-user-info-form
+      [user]="user()!"
+      (save)="saveProfile($event)"
+    />
+    }
+
+      <app-user-password-form
+        (passwordSubmitted)="changePassword($event)">
+      </app-user-password-form>
+
+      <app-user-addresses-form
+        [addresses]="addresses()"
+        [isLoading]="isLoadingAddresses()"
+        [isSaving]="isSavingAddress()"
+        (create)="createAddress($event)"
+        (update)="updateAddress($event)"
+        (delete)="deleteAddress($event)"
+        (setDefault)="setDefaultAddress($event)">
+      </app-user-addresses-form>
+      
+    </div>
+  </div>
+</section>

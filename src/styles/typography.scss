@@ -15,11 +15,20 @@ p {
 
 .section-title {
   font-family: var(--font-heading);
-  font-size: 32px;
+  font-size: 24px;
   line-height: 1.2;
   font-weight: 900;
 }
 
 .text-muted {
   color: var(--color-text-secondary);
+}
+
+.base-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  color: var(--color-black);
+  font-family: var(--font-heading);
+  text-transform: uppercase;
 }

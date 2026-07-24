@@ -1,0 +1,120 @@
+.product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover .product-card__image-wrapper {
+    opacity: 0.92;
+  }
+}
+
+.product-card__image-wrapper {
+  aspect-ratio: 1 / 1;
+  background: var(--color-bg-soft);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.product-card__image-inner {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  margin: 10%;
+}
+
+.product-card__image {
+  object-fit: contain;
+}
+
+.product-card__title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.product-card__rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 14px;
+}
+
+.product-card__stars {
+  color: var(--color-warning);
+  letter-spacing: 1px;
+}
+
+.product-card__price-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.product-card__price {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.product-card__old-price {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+.product-card__discount {
+  border-radius: var(--radius-pill);
+  padding: 6px 12px;
+  background: var(--color-discount-bg);
+  color: var(--color-danger);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.product-card__button {
+  margin-top: var(--space-2);
+}
+
+.product-card__wishlist {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+
+  background: var(--color-bg, #fff);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: transform 0.15s ease, color 0.15s ease, background 0.15s ease;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    transform: scale(1.08);
+    background: var(--color-bg-soft);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.product-card__wishlist--active {
+  color: var(--color-danger);
+}

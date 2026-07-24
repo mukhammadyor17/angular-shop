@@ -1,0 +1,62 @@
+<div class="login-box">
+  <a class="brand" routerLink="/">SHOP.CO</a>
+
+  <div class="heading">
+    <h1>Welcome Back</h1>
+    <p>Sign in to continue shopping.</p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" novalidate>
+    <div class="field">
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Email address"
+        autocomplete="email"
+        [class.is-error]="email.invalid && (email.touched || submitted)"
+      />
+      @if (email.invalid && (email.touched || submitted)) {
+        <span class="field-error">
+          @if (email.errors?.['required']) {
+            Email is required.
+          } @else if (email.errors?.['email']) {
+            Enter a valid email address.
+          }
+        </span>
+      }
+    </div>
+
+    <div class="field">
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+        autocomplete="current-password"
+        [class.is-error]="password.invalid && (password.touched || submitted)"
+      />
+      @if (password.invalid && (password.touched || submitted)) {
+        <span class="field-error">
+          @if (password.errors?.['required']) {
+            Password is required.
+          } @else if (password.errors?.['minlength']) {
+            At least 6 characters.
+          }
+        </span>
+      }
+      <a (click)="$event.preventDefault()" href="#" class="forgot">Forgot password?</a>
+    </div>
+
+    @if (loginError) {
+      <span class="field-error">{{ loginError }}</span>
+    }
+
+    <button type="submit" class="btn btn-primary submit-btn">Sign In</button>
+  </form>
+
+  <div class="divider"><span>OR</span></div>
+
+  <p class="register-prompt">
+    Don't have an account?
+    <a routerLink="/register" class="register-link">Sign Up</a>
+  </p>
+</div>

@@ -6,14 +6,40 @@
 @use './styles/buttons';
 
 @include mat.theme(
-    (
-      color: (
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
-      ),
-      typography: Roboto,
-      density: 0,
-    )
+  (
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  )
 );
 
+.text-center {
+  text-align: center;
+}
 
+.pt-10 {
+  padding-top: 40px;
+}
+
+.app-toast-panel .mdc-snackbar__surface {
+  background: var(--color-black) !important;
+}
+
+.app-toast-panel--success .mdc-snackbar__surface {
+  background: var(--color-success) !important;
+}
+
+.app-toast-panel--error .mdc-snackbar__surface {
+  background: var(--color-danger) !important;
+}
+
+.app-toast-panel--info .mdc-snackbar__surface {
+  background: var(--color-info) !important;
+}
+
+.app-toast-panel--warning .mdc-snackbar__surface {
+  background: var(--color-warning) !important;
+}

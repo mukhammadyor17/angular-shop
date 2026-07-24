@@ -1,0 +1,46 @@
+<div class="home-page">
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
+      <p class="hero-description">
+        Browse through our diverse range of meticulously crafted garments, designed to bring out
+        your individuality and cater to your sense of style.
+      </p>
+      <button class="btn btn-primary">Shop Now</button>
+      <div class="statistics">
+        <div class="statistic">
+          <h2>200+</h2>
+          <p>International Brands</p>
+        </div>
+        <div class="line"></div>
+        <div class="statistic">
+          <h2>2,000+</h2>
+          <p>High-Quality Products</p>
+        </div>
+        <div class="line"></div>
+        <div class="statistic">
+          <h2>30,000%+</h2>
+          <p>Happy Customers</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="new-arrivals">
+    <div class="container">
+      <div class="base-title">NEW ARRIVALS</div>
+      @if (isLoading()) {
+        <div class="products-loading">Loading...</div>
+      } @else {
+        <div class="products-list">
+          @for (product of products().slice(0, 4); track product.id) {
+            <app-product-card
+              [product]="product"
+              (addToCart)="onAddToCart($event)"
+            ></app-product-card>
+          }
+        </div>
+      }
+      <a class="catalog-link" routerLink="/catalog">View All</a>
+    </div>
+  </section>
+</div>

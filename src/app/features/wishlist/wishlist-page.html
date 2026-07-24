@@ -1,0 +1,41 @@
+<section class="wishlist-page">
+    <div class="container">
+        <div class="wishlist-header">
+            <div>
+                <h1 class="page-header">wishlist</h1>
+                <p class="text-muted">saved products: {{ totalItems() }}</p>
+            </div>
+        </div>
+
+            @if (!wishlistItems().length) {
+                <div class="empty-state">
+                    <h2 class="section-title">wishlist is empty</h2>
+                    <p class="text-muted">save products you like</p>
+                    <a routerLink="/catalog" class="btn btn-primary">go to catalog</a>
+                </div>
+            }
+
+            @if (wishlistItems().length) {
+                <div class="wishlist-grid">
+                    @for (item of wishlistItems(); track item.id) {
+                        <article class="wishlist-card">
+                            <div class="wishlist-image-wrapper">
+                                <img [src]="item.imageUrl" [alt]="item.title" class="wishlist-image" />
+                            </div>
+
+                            <div class="wishlist-content">
+                                <h3 class="wishlist-title">{{ item.title }}</h3>
+                                <div class="wishlist-price">
+                                    <span class="current-price">{{ item.price }}</span>
+                                </div>
+                                <div class="wishlist-actions">
+                                    <button class="btn btn-primary" (click)="addToCart(item)">add to cart</button>
+                                    <button class="btn btn-secondary" (click)="removeItem(item.id)">remove</button>
+                                </div>
+                            </div>
+                        </article>
+                    }
+                </div>
+            }
+    </div>
+</section>

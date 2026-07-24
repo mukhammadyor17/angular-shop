@@ -1,0 +1,54 @@
+<div class="card">
+
+  <!-- team member avatar -->
+  <div class="card-top">
+
+    <img
+      class="card-image"
+      [src]="member().image"
+      [alt]="member().name"
+    >
+    
+
+    <!-- team member bio block with short-text pipe -->
+    <div class="bio-block">
+
+      <p class="bio text-muted">
+        {{ isExpanded ? member().bio
+        : member().bio | shortText }}
+      </p>
+
+      <button
+        type="button"
+        class="btn-read-more"
+        [attr.aria-expanded]="isExpanded"
+        (click)="isExpanded = !isExpanded"
+      >
+        {{ isExpanded ? 'show less' : 'read more' }}
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- team member name / role / github link -->
+  <div class="card-content">
+
+    <div class="card-header">
+      <h3>{{ member().name }}</h3>
+      <p class="role">{{ member().role }}</p>
+    </div>
+
+    <a
+      class="btn btn-primary btn-github"
+      [href]="member().github"
+      target="_blank"
+      rel="noopener noreferrer"
+      (click)="onGithubClick()"
+    >
+      GitHub
+    </a>
+
+  </div>
+
+</div>

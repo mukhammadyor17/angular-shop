@@ -10,6 +10,7 @@ Github link - [AngularShop](https://github.com/mukhammadyor17/angular-shop)
 
 - [Mukhammadyor Turskhanov](https://github.com/mukhammadyor17/)
 - [Askhat Tassybayev](https://github.com/Aseke09)
+- [Dzina](https://github.com/DzinaKor)
 
 ### Development server
 
