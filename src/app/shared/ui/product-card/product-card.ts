@@ -32,7 +32,7 @@ export class ProductCard {
   
   addToCart = output<Product>();
 
-   onToggleWishlist(): void {
+  onToggleWishlist(): void {
     const product = this.product();
 
     if (this.isInWishlist()) {
@@ -40,12 +40,7 @@ export class ProductCard {
       return;
     }
 
-    this.wishlistService.addToWishList({
-      id: product.id,
-      name: product.title,
-      image: product.imageUrl,
-      price: product.price,
-    });
+    this.wishlistService.addToWishList(product);
   }
 
   onAddToCart(): void {

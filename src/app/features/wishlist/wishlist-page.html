@@ -5,6 +5,7 @@
                 <h1 class="page-header">wishlist</h1>
                 <p class="text-muted">saved products: {{ totalItems() }}</p>
             </div>
+        </div>
 
             @if (!wishlistItems().length) {
                 <div class="empty-state">
@@ -19,14 +20,16 @@
                     @for (item of wishlistItems(); track item.id) {
                         <article class="wishlist-card">
                             <div class="wishlist-image-wrapper">
-                                <img [src]="item.image" [alt]="item.name" class="wishlist-image" />
+                                <img [src]="item.imageUrl" [alt]="item.title" class="wishlist-image" />
                             </div>
 
                             <div class="wishlist-content">
-                                <h3 class="wishlist-title">{{ item.name }}</h3>
-                                <div class="wishlist-price"></div>
+                                <h3 class="wishlist-title">{{ item.title }}</h3>
+                                <div class="wishlist-price">
+                                    <span class="current-price">{{ item.price }}</span>
+                                </div>
                                 <div class="wishlist-actions">
-                                    <button class="btn btn-primary">add to cart</button>
+                                    <button class="btn btn-primary" (click)="addToCart(item)">add to cart</button>
                                     <button class="btn btn-secondary" (click)="removeItem(item.id)">remove</button>
                                 </div>
                             </div>
@@ -34,6 +37,5 @@
                     }
                 </div>
             }
-        </div>
     </div>
 </section>
